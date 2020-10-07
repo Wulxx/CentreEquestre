@@ -1,9 +1,15 @@
-const express = require('express')
-const app = express()
-const port = 4042
+import express from 'express';
+import bodyParser from 'body-parser';
 
-app.get('/', (req, res) => {
-  res.send('Centre equestre ')
+const app = express()
+const port = 4042;
+
+
+app.use(bodyParser.json());
+
+app.get('/', (req,res) => {
+  res.send('Test')
+
 })
 
 app.listen(port, () => {
