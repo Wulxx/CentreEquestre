@@ -13,5 +13,5 @@ app.get('/', (req,res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Nous écoutons sur le port http://localhost:${port}`)
+  console.log(`Nous écoutons sur le portj http://localhost:${port}`)
 }) 
