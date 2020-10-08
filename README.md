@@ -1,7 +1,7 @@
 # CentreEquestre (Nom à trouver)
-Site d'inscription pour cavalières d'un centre équestre.
+### Site d'inscription pour cavalières d'un centre équestre.
 
-##Introduction
+## Introduction
 Ce projet est en rapport avec notre cours de développement WEB avancé à l'ESIEA.
 Le sujet étant de devoir créer un site WEB avec Angular. 
 
