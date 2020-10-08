@@ -5,7 +5,6 @@ import userSchema from '../models/user.js'
 import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
 const { response } = pkg;
-var users = [];
 
 export const createUser = (req, res, next) => {
     console.log("create")
@@ -31,14 +30,6 @@ export const createUser = (req, res, next) => {
                     res.send("Pas Ok");
                 });
         });
-    // const {email, pseudo, password } = req.body;
-
-    //     if (email && pseudo && password){
-    //         const user = {};
-    //         const userId = uuidv4();
-    //         const userWithid = { ... user, id: userId, email: email, pseudo: pseudo, password : password};
-    //         users.push(userWithid);
-    //     }
 }
 
 export const signUser = (req, res, next) => {
@@ -76,8 +67,6 @@ export const signUser = (req, res, next) => {
         });
     });
 }
-
-
 export const getUser = (req, res) => {
     console.log("get")
     userSchema.find((error, response) => {
@@ -87,10 +76,6 @@ export const getUser = (req, res) => {
             res.status(200).json(response)
         }
     })
-    // const { id } = req.params;
-    // let currentUser = users.find((user) => user.id === id);
-    // console.log(currentUser)
-    // res.send(currentUser)
 }
 
 export const getUserById = (req, res, next) => {
@@ -104,10 +89,6 @@ export const getUserById = (req, res, next) => {
             })
         }
     })
-    // const { id } = req.params;
-    // let currentUser = users.find((user) => user.id === id);
-    // console.log(currentUser)
-    // res.send(currentUser)
 }
 
 export const deleteUser = (req,res) => {
@@ -120,11 +101,6 @@ export const deleteUser = (req,res) => {
             console.log("Well deleted")
         }
     })
-
-    // const { id } = req.params;
-
-    // users = users.filter((user) => user.id !== id)
-    // res.send(users)
 }
 
 export const updateUser = (req,res, next) => {
@@ -140,15 +116,4 @@ export const updateUser = (req,res, next) => {
             console.log('user successfully updated !')
         }
     })
-
-    // const { id } = req.params;
-    // const { firstName, lastName, age } = req.body;
-
-    // var currentUser = users.find((user) => user.id === id);
-
-    // if (firstName) currentUser.firstName = firstName;
-    // if (lastName) currentUser.lastName = lastName;
-    // if (age) currentUser.age = age;
-
-    // res.send(users)
 }

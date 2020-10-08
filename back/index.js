@@ -5,8 +5,7 @@ import bodyParser from 'body-parser';
 import dbConfig from './database/db.js'
 
 //API express
-import api from './middlewares/auth.routes.js'
-import usersRoutes from './routes/user.js'
+import api from './routes/auth.routes.js'
 
 
 //MongoDb COnnexion

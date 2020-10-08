@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import userSchema from '../models/user.js'
 const router = express.Router();
-import  authorize from "./auth.js";
+import  authorize from "../middlewares/auth.js";
 import pkg from 'express-validator';
 import { createUser, getUser,getUserById,signUser, updateUser, deleteUser } from '../controllers/users.js'
 
