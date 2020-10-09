@@ -13,14 +13,15 @@ export const createUser = (req, res, next) => {
             const user = new userSchema({
                 name : req.body.name,
                 email : req.body.email,
+                status: req.body.status,
                 password : hash
             });
 
             user.save()
-                .then((response) => {
+                .then((responseFromPost) => {
                     res.status(201).json({
                         message: "User successfully created",
-                        result : response
+                        result : responseFromPost
                     });
                     res.send("Ok");
                 }).catch(error => {
@@ -62,6 +63,7 @@ export const signUser = (req, res, next) => {
             msg: getUser
         });
     }).catch(err => {
+        console.log("Erreur creation")
         return res.status(401).json({
             message: "Authentication failed"
         });

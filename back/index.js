@@ -5,7 +5,17 @@ import bodyParser from 'body-parser';
 import dbConfig from './database/db.js'
 
 //API express
-import api from './routes/auth.routes.js'
+import authAPI from './routes/auth.routes.js'
+
+import  helmet from 'helmet';
+
+
+const app = express();
+const port = 4042;
+
+
+
+// app.use(helmet());
 
 
 //MongoDb COnnexion
@@ -22,8 +32,6 @@ mongoose.connect(dbConfig.db, {
 
 mongoose.set('useCreateIndex', true);
 
-const app = express();
-const port = 4042;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -33,9 +41,7 @@ app.use(cors());
 
 app.use('/public', express.static('public'));
 
-app.use('/api',api)
-
-app.use('/user', api)
+app.use('/user', authAPI)
 
 // Express error handling
 app.use((req, res, next) => {

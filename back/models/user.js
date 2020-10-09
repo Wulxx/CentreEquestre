@@ -14,6 +14,9 @@ let userSchema = new Schema({
         unique : true
 
     },
+    status : {
+        type: String,
+    },
     password : {
         type : String,
 
