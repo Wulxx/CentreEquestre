@@ -4,16 +4,14 @@ import express from 'express';
 const router = express.Router();
 
 //connexion
-const authTester = (req, res, next) => {
+export default (req, res, next) => {
     try {
-        const token = req.headers.authoriation.split(" ")[1];
+        const token = req.headers.authorisazion;
         jwt.verify(token, "longer-secret-is-better");
         next();
     } catch(error) {
         res.status(401).json({
-            message: 'AUthentification failed'
+            message: 'Authentification failed'
         });
     }
 }
-
-export default authTester;

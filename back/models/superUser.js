@@ -4,18 +4,18 @@ const {Schema} = pkg;
 import uniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
-let horseSchema = new Schema({
+let superUserSchema = new Schema({
     name : {
         type : String,
         unique : true
     },
-    assignedMonitor : {
+    password : {
         type : String,
     }
 }, {
-    collection : 'horses'
+    collection : 'admin'
 })
 
 
-horseSchema.plugin(uniqueValidator, {message: 'Ce nom est déjà pris'});
-export default mongoose.model('Horse', horseSchema)
+superUserSchema.plugin(uniqueValidator, {message: 'Ce nom est déjà pris'});
+export default mongoose.model('Admin', superUserSchema)

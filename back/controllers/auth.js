@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import userSchema from '../models/user.js'
+import userSchema from '../models/auth.js'
 
 import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
@@ -8,6 +8,21 @@ const { response } = pkg;
 
 import expressValidator from 'express-validator';
 const { body } = expressValidator;
+
+import { sendMail } from '../usefulServices/mail.js'
+
+
+export const sendPassWord = (req,res) => {
+    console.log(req.body.email)
+    userSchema.findOne({email : req.body.email},(error, response) => {
+        if(error){
+            return next(error)
+        } else {
+            sendMail(response.email,response.firstName, response.password)
+            res.status(200).json({ status : "well sent"})
+        }
+    })
+}
 
 export const createUser = (req, res, next) => {
     console.log("create")
@@ -77,6 +92,7 @@ function checkIfExist (req, res, connexionWay) {
         let jwtToken = jwt.sign(connexionTokenBuilder, "longer-secret-is-better", {
             expiresIn: "1h"
         });
+        console.log(jwtToken);
         res.status(200).json({
             token: jwtToken,
             expiresIn: 3600,

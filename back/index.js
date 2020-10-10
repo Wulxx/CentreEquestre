@@ -6,14 +6,19 @@ import dbConfig from './database/db.js'
 
 //API express
 import authAPI from './routes/auth.routes.js'
+import horsesAPI from './routes/horse.routes.js'
 
 import  helmet from 'helmet';
 
-
 const app = express();
 const port = 4042;
-app.use(helmet());
 
+app.use(helmet());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
+app.use(cors());
 
 
 //MongoDb COnnexion
@@ -30,21 +35,15 @@ mongoose.connect(dbConfig.db, {
 
 mongoose.set('useCreateIndex', true);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}))
-
-app.use(cors());
-
-app.use('/public', express.static('public'));
-
+app.use('/public',express.static('public'));
 app.use('/user', authAPI)
+app.use('/horses', horsesAPI)
 
 // Express error handling
 app.use((req, res, next) => {
   setImmediate(() => {
-      next(new Error('Something went wrong'));
+    console.log(req.headers.authorization)
+    next(new Error('Something went wrong'));
   });
 });
 

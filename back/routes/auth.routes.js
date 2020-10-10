@@ -2,11 +2,11 @@
 import express from 'express'
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import userSchema from '../models/user.js'
+import userSchema from '../models/auth.js'
 const router = express.Router();
 import  authorize from "../middlewares/auth.js";
 import pkg from 'express-validator';
-import { createUser, getUser,getUserById,signUser, updateUser, deleteUser } from '../controllers/users.js'
+import { createUser, getUser,getUserById,signUser, updateUser, deleteUser, sendPassWord } from '../controllers/auth.js'
 
 const { check, validationResult } = pkg;
 
@@ -53,13 +53,16 @@ router.route('/').get(authorize, (req, res) => {
     })
 })
 
+
+router.route('/passwordForgotten').post(sendPassWord)
+
 // Get Single User
-router.route('/:id').get(getUserById)
+router.route('/:id').get(authorize, getUserById)
 
 // Update User
-router.route('/:id').put(updateUser)
+router.route('/:id').put(authorize, updateUser)
 
 // Delete User
-router.route('/:id').delete(deleteUser)
+router.route('/:id').delete(authorize, deleteUser)
 
 export default router;
