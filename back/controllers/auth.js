@@ -144,6 +144,43 @@ export const deleteUser = (req,res) => {
     })
 }
 
+export const superSignIn = (req,res, next) => {
+    console.log("Super sign")
+    let getUser;
+    userSchema.findOne({ status : "superAdmin"}).then(user => {
+        if (!user) {
+            return res.status(401).json({
+                message: "Authentication failed"
+            });
+        }
+        getUser = user;
+        return bcrypt.compare(req.body.password, user.password);
+    }).then(response => {
+        if (!response) {
+            return res.status(401).json({
+                message: "Authentication failed"
+            });
+        }
+        let connexionTokenBuilder = {... connexionWay, userId: getUser._id}
+        let jwtToken = jwt.sign(connexionTokenBuilder, "longer-secret-is-better", {
+            expiresIn: "1h"
+        });
+        console.log(jwtToken);
+        res.status(200).json({
+            token: jwtToken,
+            expiresIn: 3600,
+            msg: getUser
+        });
+    }).catch(err => {
+        console.log(err)
+        return res.status(401).json({
+            message: "Authentication failed"
+        });
+    });
+
+
+}
+
 export const updateUser = (req,res, next) => {
     console.log("update")
     userSchema.findByIdAndUpdate(req.params.id, {

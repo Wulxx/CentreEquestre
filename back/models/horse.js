@@ -11,6 +11,9 @@ let horseSchema = new Schema({
     },
     assignedMonitor : {
         type : String,
+    },
+    courses : {
+        type : Array
     }
 }, {
     collection : 'horses'

@@ -42,6 +42,14 @@ router.post("/signin",
         .isEmpty()
 ], signUser);
 
+// Sign-in
+router.post("/superSignIn",
+[
+    check('password', 'Password should t be isEmpty')
+        .not()
+        .isEmpty()
+], signUser);
+
 // Get Users
 router.route('/').get(authorize, (req, res) => {
     userSchema.find((error, response) => {

@@ -1,6 +1,4 @@
 import nodeMailer from 'nodemailer';
-
-
 export const sendMail = (mail, name, password) => {
     var transporter = nodeMailer.createTransport({
         service: 'gmail',
@@ -16,7 +14,6 @@ export const sendMail = (mail, name, password) => {
         subject : 'bonjour ' + name,
         text : 'Votre mot de passe est : ' + password,
     };
-
     transporter.sendMail(mailOptions, (err, inf) => {
         if (err){
             console.log(err)
