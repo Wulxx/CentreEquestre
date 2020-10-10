@@ -6,12 +6,18 @@ import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
 const { response } = pkg;
 
+import expressValidator from 'express-validator';
+const { body } = expressValidator;
+
 export const createUser = (req, res, next) => {
     console.log("create")
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
             const user = new userSchema({
-                name : req.body.name,
+                firstName : req.body.firstName,
+                lastName : req.body.lastName,
+                number : req.body.number,
+                licenseNumber : req.body.licenseNumber,
                 email : req.body.email,
                 status: req.body.status,
                 password : hash
@@ -33,11 +39,27 @@ export const createUser = (req, res, next) => {
         });
 }
 
-export const signUser = (req, res, next) => {
+
+export const signUser = (req, res) => {
+    let { email, number, licenseNumber } = req.body;
+
+
+    if (email){
+        let connexionWay = { email: email};
+        checkIfExist(req, res, connexionWay)
+    }
+    if (number){
+        let connexionWay = { number: number};
+        checkIfExist(req, res, connexionWay)
+    }
+    if (licenseNumber){
+        let connexionWay = { licenseNumber: licenseNumber};
+        checkIfExist(req, res, connexionWay)
+    }
+}
+function checkIfExist (req, res, connexionWay) {
     let getUser;
-    userSchema.findOne({
-        email: req.body.email
-    }).then(user => {
+    userSchema.findOne(connexionWay).then(user => {
         if (!user) {
             return res.status(401).json({
                 message: "Authentication failed"
@@ -51,10 +73,8 @@ export const signUser = (req, res, next) => {
                 message: "Authentication failed"
             });
         }
-        let jwtToken = jwt.sign({
-            email: getUser.email,
-            userId: getUser._id
-        }, "longer-secret-is-better", {
+        let connexionTokenBuilder = {... connexionWay, userId: getUser._id}
+        let jwtToken = jwt.sign(connexionTokenBuilder, "longer-secret-is-better", {
             expiresIn: "1h"
         });
         res.status(200).json({
@@ -63,12 +83,15 @@ export const signUser = (req, res, next) => {
             msg: getUser
         });
     }).catch(err => {
-        console.log("Erreur creation")
+        console.log(err)
         return res.status(401).json({
             message: "Authentication failed"
         });
     });
 }
+
+
+
 export const getUser = (req, res) => {
     console.log("get")
     userSchema.find((error, response) => {

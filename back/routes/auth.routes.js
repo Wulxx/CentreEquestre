@@ -14,11 +14,15 @@ const { check, validationResult } = pkg;
 // Sign-up
 router.post("/create",
     [
-        check('name')
+        check('firstName')
             .not()
             .isEmpty()
             .isLength({ min: 3 })
             .withMessage('Name must be atleast 3 characters long'),
+        check('lastName')
+            .not()
+            .isEmpty()
+            .withMessage('Le nom doit être au moins long de deux caractères'),
         check('email', 'Email is required')
             .not()
             .isEmpty(),
@@ -31,7 +35,12 @@ router.post("/create",
             .isLength({ min: 5, max: 8 })
     ],createUser);
 // Sign-in
-router.post("/signin", signUser);
+router.post("/signin",
+[
+    check('password', 'Password should t be isEmpty')
+        .not()
+        .isEmpty()
+], signUser);
 
 // Get Users
 router.route('/').get(authorize, (req, res) => {

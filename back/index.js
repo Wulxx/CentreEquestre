@@ -12,10 +12,8 @@ import  helmet from 'helmet';
 
 const app = express();
 const port = 4042;
+app.use(helmet());
 
-
-
-// app.use(helmet());
 
 
 //MongoDb COnnexion

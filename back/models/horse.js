@@ -5,31 +5,11 @@ import uniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
 let userSchema = new Schema({
-    firstName : {
-        type : String,
-
-    },
-    lastName : {
+    name : {
         type : String,
     },
-    number : {
+    assignedMonitor : {
         type : String,
-    }
-    ,
-    licenseNumber : {
-        type : String
-        },
-    email : {
-        type : String,
-        unique : true
-
-    },
-    status : {
-        type: String,
-    },
-    password : {
-        type : String,
-
     }
 }, {
     collection : 'users'
