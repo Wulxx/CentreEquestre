@@ -12,6 +12,48 @@ const { response } = pkg;
 import expressValidator from 'express-validator';
 const { body } = expressValidator;
 
+
+export const signAsAdmin = (res,rep ) => {
+    let { email } = req.body;
+
+    let connexionWay = { email: email };
+    checkIfExist(req, res, connexionWay)
+
+}
+function checkIfExist (req, res, connexionWay) {
+    let getUser;
+    adminSchema.findOne(connexionWay).then(user => {
+        if (!user) {
+            return res.status(401).json({
+                message: "Authentication failed"
+            });
+        }
+        getUser = user;
+        return bcrypt.compare(req.body.password, user.password);
+    }).then(response => {
+        if (!response) {
+            return res.status(401).json({
+                message: "Authentication failed"
+            });
+        }
+        let connexionTokenBuilder = {... connexionWay, userId: getUser._id}
+        let jwtToken = jwt.sign(connexionTokenBuilder, "2I3PgCH6EdCg1WNTtX62_QhHedax3UIShzfbYJHWx63zeeQkzQojwQltK486thuXwcOJq_AKTEELvrhAyd0cXK5FGg-3qC-eoWy2hKDhsO630cSsM3Bb8MMeGYRFa8DbSDEuFFO9jZfrEZWk5jx85ZtqamTuqvnyvBtwIMIs_i8Admin", {
+            expiresIn: "1h"
+        });
+        console.log(jwtToken);
+        res.status(200).json({
+            token: jwtToken,
+            expiresIn: 3600,
+            msg: getUser
+        });
+    }).catch(err => {
+        console.log(err)
+        return res.status(401).json({
+            message: "Authentication failed"
+        });
+    });
+}
+
 export const createTeacher = (req, res, next) => {
     console.log("create Teacher")
     const teacher = new teacherSchema({
@@ -41,6 +83,7 @@ export const createHorse = (req, res, next) => {
     const horse = new horseSchema({
         name : req.body.name,
         assignedMonitor : req.body.assignedMonitor,
+        courses : []
     });
     horse.save()
         .then((responseFromPost) => {
@@ -101,4 +144,30 @@ export const getAdmin = (req, res) => {
             res.status(200).json(response)
         }
     }).exec()
+}
+
+export const getProfil = (req,res) => {
+    console.log("getProfil")
+    var getProfil = adminSchema.findById(req.body._id, (err, res) => {
+        if(error){
+            res.status(403).json(response)
+        }else{
+            res.send(getProfil)
+        }
+    })
+}
+
+export const updateAdmin = (req,res, next) => {
+    console.log("update")
+    adminSchema.findByIdAndUpdate(req.params.id, {
+        $set: req.body
+    }, (error, data) => {
+        if (error) {
+            console.log(error)
+            return next(error);
+        }else {
+            res.json(data)
+            console.log('user successfully updated !')
+        }
+    })
 }

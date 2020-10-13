@@ -2,11 +2,11 @@
 import express from 'express'
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import userSchema from '../models/auth.js'
+import userSchema from '../models/cavalier.js'
 const router = express.Router();
 import  authorize from "../middlewares/auth.js";
 import pkg from 'express-validator';
-import { createUser, getUser,getUserById,signUser, updateUser, deleteUser, sendPassWord } from '../controllers/auth.js'
+import { createUser } from '../controllers/auth.js'
 
 const { check, validationResult } = pkg;
 
@@ -26,30 +26,11 @@ router.post("/create",
         check('email', 'Email is required')
             .not()
             .isEmpty(),
-        check('status', 'Veuilliez choisir un status')
-            .not()
-            .isEmpty(),
         check('password', 'Password should be between 5 to 8 characters long')
             .not()
             .isEmpty()
             .isLength({ min: 5, max: 8 })
     ],createUser);
-// Sign-in
-router.post("/signin",
-[
-    check('password', 'Password should t be isEmpty')
-        .not()
-        .isEmpty()
-], signUser);
-
-// Sign-in
-router.post("/superSignIn",
-[
-    check('password', 'Password should t be isEmpty')
-        .not()
-        .isEmpty()
-], signUser);
-
 // Get Users
 router.route('/').get(authorize, (req, res) => {
     userSchema.find((error, response) => {
@@ -60,17 +41,5 @@ router.route('/').get(authorize, (req, res) => {
         }
     })
 })
-
-
-router.route('/passwordForgotten').post(sendPassWord)
-
-// Get Single User
-router.route('/:id').get(authorize, getUserById)
-
-// Update User
-router.route('/:id').put(authorize, updateUser)
-
-// Delete User
-router.route('/:id').delete(authorize, deleteUser)
 
 export default router;
