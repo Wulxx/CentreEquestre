@@ -24,7 +24,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -63,8 +62,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "projet5A:build",
-            "port": 4444
+            "browserTarget": "projet5A:build"
           },
           "configurations": {
             "production": {
@@ -121,10 +119,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "projet5A",
-  "cli": {
-    "analytics": "9f629a93-40c4-4e50-927f-fea3e325e352"
-  }
+    }},
+  "defaultProject": "projet5A"
 }

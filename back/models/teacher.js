@@ -4,15 +4,21 @@ const {Schema} = pkg;
 import uniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
-let userSchema = new Schema({
-    name : {
+let teacherSchema = new Schema({
+    firstName : {
         type : String,
 
     },
+    lastName : {
+        type : String,
+    },
+    number : {
+        type : String,
+    }
+    ,
     email : {
         type : String,
         unique : true
-
     },
     password : {
         type : String,
@@ -23,5 +29,5 @@ let userSchema = new Schema({
 })
 
 
-userSchema.plugin(uniqueValidator, {message: 'Email already in use.'});
-export default mongoose.model('User', userSchema)
+teacherSchema.plugin(uniqueValidator, {message: 'Email already in use.'});
+export default mongoose.model('User', teacherSchema)

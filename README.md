@@ -1,3 +1,6 @@
+# CentreEquestre
+Développement WEB, projet 5A.
+=======
 # CentreEquestre (Nom à trouver)
 ### Site d'inscription pour cavalières d'un centre équestre.
 
