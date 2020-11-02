@@ -14,7 +14,7 @@ export const asingHorse = (req, res) => {
     currentHorse.courses.push({debut : "2020-10-10T19:30:00", end : "2020-10-10T20:30:00"})
     await horseSchema.findByIdAndUpdate(horseId, {
         $set: currentHorse
-    }, (error, data) => {
+        }, (error, data) => {
         if (error) {
             return next(error); 
             console.log(error)
@@ -23,9 +23,7 @@ export const asingHorse = (req, res) => {
             console.log('user successfully updated !')
         }
     })
-
 }
-
 export const getHorses = (req,res) => {
     console.log("get")
     horseSchema.find((error, response) => {
@@ -36,8 +34,6 @@ export const getHorses = (req,res) => {
         }
     })
 }
-
-
 export const createHorse = (req, res, next) => {
     console.log("create")
     const horse = new horseSchema({
