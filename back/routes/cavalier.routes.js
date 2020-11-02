@@ -2,26 +2,35 @@
 import express from 'express'
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import userSchema from '../models/auth.js'
+import lessonsSchema from '../models/lessons.js'
 const router = express.Router();
-import  authorize from "../middlewares/auth.js";
+import  authorize from "../middlewares/user.auth.js";
 import pkg from 'express-validator';
-import { createUser, getUser,getUserById,signUser, updateUser, deleteUser, sendPassWord } from '../controllers/auth.js'
+import { getUser,getUserById,signAsCav, updateUser, deleteUser, sendPassWord, getCourses } from '../controllers/cavalier.js'
 
 const { check, validationResult } = pkg;
 
 // Get Users
-router.route('/getCourses').get(authorize, (req, res) => {
-    const _id = req.headers.id;
-    let user;
-    userSchema.findById(_id, (err, rep) => {
-        if(err){
-            return next(err)
-        } else{
-            user = rep
-        }
-    })
-})
+router.route('/getCourses').get(authorize,getCourses)
+
+// Sign-in
+router.post("/signin",
+[
+    check('password', 'Password should t be isEmpty')
+        .not()
+        .isEmpty()
+], signAsCav);
+
+router.route('/passwordForgotten').post(sendPassWord)
+
+// Get Single User
+router.route('/:id').get(authorize, getUserById)
+
+// Update User
+router.route('/:id').put(authorize, updateUser)
+
+// Delete User
+router.route('/:id').delete(authorize, deleteUser)
 
 
 

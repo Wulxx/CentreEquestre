@@ -14,7 +14,7 @@ let lessonsSchema = new Schema({
     debutDate : {
         type : Date
     },
-    enddate : {
+    endDate : {
         type : Date
     },
     horses : {

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import userSchema from '../models/auth.js'
+import userSchema from '../models/cavalier.js'
 
 import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
@@ -10,19 +10,6 @@ import expressValidator from 'express-validator';
 const { body } = expressValidator;
 
 import { sendMail } from '../usefulServices/mail.js'
-
-
-export const sendPassWord = (req,res) => {
-    console.log(req.body.email)
-    userSchema.findOne({email : req.body.email},(error, response) => {
-        if(error){
-            return next(error)
-        } else {
-            sendMail(response.email,response.firstName, response.password)
-            res.status(200).json({ status : "well sent"})
-        }
-    })
-}
 
 export const createUser = (req, res, next) => {
     console.log("create")
@@ -35,24 +22,28 @@ export const createUser = (req, res, next) => {
                 licenseNumber : req.body.licenseNumber,
                 email : req.body.email,
                 status: req.body.status,
-                password : hash
+                password : hash,
+                courses : []
             });
 
             user.save()
                 .then((responseFromPost) => {
+                    sendMail(req.body.email,req.body.firstName, "", false)
+                    console.log("Created")
                     res.status(201).json({
                         message: "User successfully created",
                         result : responseFromPost
                     });
-                    res.send("Ok");
                 }).catch(error => {
+                    console.log("Not Created")
+                    console.log(error)
                     res.status(500).json({
                         error: error
                     });
-                    res.send("Pas Ok");
                 });
         });
 }
+<<<<<<< HEAD
 
 
 export const signUser = (req, res) => {
@@ -195,3 +186,5 @@ export const updateUser = (req,res, next) => {
         }
     })
 }
+=======
+>>>>>>> ccb1498080ecf2ed9a8117aaeecfcb8cc3c5d8ec

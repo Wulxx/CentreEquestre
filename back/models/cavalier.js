@@ -7,22 +7,22 @@ const schema = mongoose.Schema;
 let userSchema = new Schema({
     firstName : {
         type : String,
-
     },
     lastName : {
         type : String,
     },
     number : {
         type : String,
-    }
-    ,
+    },
     licenseNumber : {
         type : String
         },
     email : {
         type : String,
         unique : true
-
+    },
+    courses : {
+        type : Array
     },
     status : {
         type: String,

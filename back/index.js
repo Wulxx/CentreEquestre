@@ -7,6 +7,7 @@ import dbConfig from './database/db.js'
 //API express
 import authAPI from './routes/auth.routes.js'
 import horsesAPI from './routes/horse.routes.js'
+import cavalierAPI from './routes/cavalier.routes.js'
 
 import  helmet from 'helmet';
 
@@ -38,6 +39,7 @@ mongoose.set('useCreateIndex', true);
 app.use('/public',express.static('public'));
 app.use('/user', authAPI)
 app.use('/horses', horsesAPI)
+app.use('/cavlier', horsesAPI)
 
 // Express error handling
 app.use((req, res, next) => {
