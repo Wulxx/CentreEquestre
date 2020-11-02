@@ -43,8 +43,6 @@ export const createUser = (req, res, next) => {
                 });
         });
 }
-<<<<<<< HEAD
-
 
 export const signUser = (req, res) => {
     let { email, number, licenseNumber } = req.body;
@@ -186,5 +184,4 @@ export const updateUser = (req,res, next) => {
         }
     })
 }
-=======
->>>>>>> ccb1498080ecf2ed9a8117aaeecfcb8cc3c5d8ec
+
