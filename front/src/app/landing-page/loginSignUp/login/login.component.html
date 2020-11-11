@@ -1,0 +1,33 @@
+<mat-card>
+  <mat-card-title>Login ({{type}})</mat-card-title>
+<mat-card-content>
+<form>
+<p>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Username" formControlName="username" [value]="email">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Mode de connexion</mat-label>
+    <mat-select>
+      <mat-option value="option">Mail</mat-option>
+      <mat-option value="option">Numero de téléphone</mat-option>
+      <mat-option value="option">License</mat-option>
+    </mat-select>
+    <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Password" formControlName="password">
+  </mat-form-field>
+</p>
+
+
+</form>
+<div class="button">
+  <button (click)="submit()" mat-button>Login</button>
+</div>
+</mat-card-content>
+</mat-card>

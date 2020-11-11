@@ -1,0 +1,9 @@
+.example-button-row {
+  display: table-cell;
+  width: auto;
+  padding: 5px;
+}
+
+.example-button-row .logButtons{
+  margin: 10px;
+}

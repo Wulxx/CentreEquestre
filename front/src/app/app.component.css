@@ -1,0 +1,30 @@
+.test1{
+  background-color: red;
+  min-width: 100%;
+  min-height: 100%;
+}
+.test2{
+  background-color: green;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+
+.example-container {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: block;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+

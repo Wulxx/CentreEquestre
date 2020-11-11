@@ -1,1 +1,24 @@
-<p>home-page works!</p>
+<div class="boxesContainer">
+  <div *ngIf="isUser">
+    <app-home-content></app-home-content>
+  </div>
+  <div *ngIf="isAdmin">
+    <app-home-content-admin></app-home-content-admin>
+  </div>
+  <div *ngIf="isMonitor">
+    <app-home-content-monitor></app-home-content-monitor>
+  </div>
+  <div *ngIf="isSuperAdmin">
+    <app-home-content-super-admin></app-home-content-super-admin>
+  </div>
+  <div *ngIf="!isUser && !isAdmin && !isMonitor && !isSuperAdmin">
+    <div>
+      Vous n'êtes pas identitfié
+    </div>
+  </div>
+</div>
+
+<div class="footerDiv">
+
+</div>
+

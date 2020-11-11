@@ -1,0 +1,42 @@
+.boxesContainer{
+display: block;
+align-items: center;
+padding: 20px;
+height: 100vh;
+overflow-y: scroll;
+overflow-x: hidden;
+}
+
+.box{
+  margin-top: 50px;
+  padding-top : 20px;
+  padding-bottom : 20px;
+  border: 1px solid black;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.boxesGrid{
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+}
+
+.bigBox{
+  max-width: 80%;
+}
+.mediumBox{
+  min-width: 100%;
+  display: inline-block;
+}
+.littleBox{
+  max-width: 20%;
+  display: inline-block;
+}
+
+
+.horsesDiv{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

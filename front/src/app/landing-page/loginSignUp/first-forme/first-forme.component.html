@@ -1,0 +1,19 @@
+<div class="landingPageContainer">
+  <p class="connexionTitle">Centre equestre</p>
+  <div>
+    <a routerLink="login" routerLinkActive="active" [queryParams]="{ type: 'Admin'}">
+      <p class="connexionTile">Admininstrateur</p>
+    </a>
+  </div>
+  <div>
+    <a routerLink="login" routerLinkActive="active" [queryParams]="{ type: 'Moniteur'}">
+      <p class="connexionTile">Moniteur</p>
+    </a>
+  </div>
+  <div>
+    <a routerLink="login" routerLinkActive="active" [queryParams]="{ type: 'Cavalier'}">
+      <p class="connexionTile">Cavalier</p>
+    </a>
+  </div>
+  <button mat-flat-button color="warn" class="signUpButton">inscription</button>
+</div>

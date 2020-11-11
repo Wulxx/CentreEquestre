@@ -1,2 +1,16 @@
-<h1>{{title}}</h1>
-<app-home-page></app-home-page>
+<app-nav-bar [navIsOpened]="showFiller" (clicked)="drawer.toggle()">
+</app-nav-bar>
+<mat-drawer-container class="example-container" autosize>
+
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-login></app-login>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>
+
+
+

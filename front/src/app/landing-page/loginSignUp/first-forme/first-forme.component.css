@@ -1,0 +1,47 @@
+.landingPageContainer{
+  width: 50%;
+  height: 50vh;
+  display:block;
+  margin-left: auto;
+  margin-right:auto;
+  background-color:white;
+  border-radius: 50px;
+  padding: 50px;
+}
+
+.landingTitle{
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+.connexionTitle{
+  text-align: center;
+  font-size: 38px;
+  font-weight: bold;
+  color: black;
+}
+
+.signUpButton{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.connexionTile{
+  margin: 30px;
+  height: 50px;
+  width: 400px;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
+  background-color:red;
+  border-radius: 10px;
+  color: white;
+}
+
+.connexionTile:hover{
+  background-color:black;
+}
