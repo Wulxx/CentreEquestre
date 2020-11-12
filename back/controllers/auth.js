@@ -77,7 +77,7 @@ export const createSuperAdmin = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
             const user = new superAdminSchema({
-                username : req.body.name,
+                username : req.body.email,
                 password: req.body.password
             });
 

@@ -8,7 +8,6 @@ import pkg from 'express';
 const { response } = pkg;
 
 import expressValidator from 'express-validator';
-import { sendMail } from '../usefulServices/mail.js'
 const { body } = expressValidator;
 
 export const signAsTeacher = (req,res ) => {
@@ -58,28 +57,6 @@ function checkIfExist (req, res, connexionWay) {
             message: "Authentication failed"
         });
     });
-}
-export const getLessons = async (req, res) => {
-     lessonsSchema.find({passed : false}, (error, data) => {
-        if (error) {
-            return next(error);
-            console.log(error)
-        }else {
-            res.json(data)
-            console.log('list founded')
-        }
-    })
-}
-export const getMyLessons = async (req, res) => {
-     lessonsSchema.find({passed : false}, (error, data) => {
-        if (error) {
-            return next(error);
-            console.log(error)
-        }else {
-            res.json(data)
-            console.log('list founded')
-        }
-    })
 }
 export const assingHorse = (req, res) => {
     let currentHorse = req.body;
@@ -141,30 +118,4 @@ export const updateTeacher = (req,res, next) => {
             console.log('user successfully updated !')
         }
     })
-}
-export const addCourse = (req, res) => {
-    console.log("Add Course")
-    const course = new lessonsSchema({
-        name : req.body.name,
-        assignedMonitor : req.body.assignedMonitor,
-        debutDate : req.body.debutDate,
-        endDate : req.body.endDate,
-        horses : [],
-        students : []
-    });
-
-    course.save()
-        .then((responseFromPost) => {
-            console.log("Created")
-            res.status(201).json({
-                message: "Lesson successfully created",
-                result : responseFromPost
-            });
-        }).catch(error => {
-            console.log("Not Created")
-            console.log(error)
-            res.status(500).json({
-                error: error
-            });
-        });
 }

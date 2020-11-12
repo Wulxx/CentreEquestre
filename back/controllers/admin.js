@@ -14,7 +14,6 @@ const { body } = expressValidator;
 
 export const signAsAdmin = (req,res ) => {
     let { email } = req.body;
-
     let connexionWay = { email: email };
     checkIfExist(req, res, connexionWay)
 

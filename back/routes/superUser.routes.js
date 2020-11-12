@@ -2,7 +2,7 @@ import express from 'express'
 
 import  authorize from "../middlewares/superUser.auth.js";
 
-import { superSignIn, createAdmin, deleteAdmin,getAllAdmin, getAdmin  } from "../controllers/superUser.js"
+import { signAsSUperAdmin, createAdmin, deleteAdmin,getAllAdmin, getAdmin  } from "../controllers/superUser.js"
 
 import pkg from 'express-validator';
 
@@ -17,7 +17,7 @@ router.post("/signIn",
     check('password', 'Password should t be isEmpty')
         .not()
         .isEmpty()
-],superSignIn);
+],signAsSUperAdmin);
 
 router.get("/getAdmin/",
 [

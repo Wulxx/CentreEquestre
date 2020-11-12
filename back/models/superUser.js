@@ -18,4 +18,4 @@ let superUserSchema = new Schema({
 
 
 superUserSchema.plugin(uniqueValidator, {message: 'Ce nom est déjà pris'});
-export default mongoose.model('SuperAdmin', superUserSchema)
+export default mongoose.model('superAdmin', superUserSchema)

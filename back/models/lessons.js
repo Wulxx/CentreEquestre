@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import pkg from 'mongoose';
 const {Schema} = pkg;
-import uniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
 let lessonsSchema = new Schema({
@@ -12,10 +11,10 @@ let lessonsSchema = new Schema({
         type : String,
     },
     debutDate : {
-        type : Date
+        type : String
     },
     endDate : {
-        type : Date
+        type : String
     },
     horses : {
         type : Array

@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import userSchema from '../models/cavalier.js'
+import lessonsSchema from '../models/lessons.js'
 
 export const signAsCav = (req,res ) => {
     console.log("signak")

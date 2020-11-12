@@ -5,7 +5,7 @@ import  authorize from "../middlewares/superUser.auth.js";
 import pkg from 'express-validator';
 
 const { check, validationResult } = pkg;
-import { signAsTeacher, getLessons, getMyLessons, assingHorse, getHorses, updateTeacher, addCourse } from "../controllers/teacher.js"
+import { signAsTeacher, assingHorse, getHorses, updateTeacher } from "../controllers/teacher.js"
 import { createHorse } from "../controllers/horses.js"
 
 const router = express.Router();
@@ -61,22 +61,7 @@ router.post("/createHorse",
         .isEmpty()
 ],createHorse);
 
-router.get("/lessons",getLessons)
-router.get("/myLessons",getMyLessons)
 router.get("/myHorses",getHorses)
-
-router.post("/createLesson",
-[
-    check('debut-date', 'Il faut une date de début')
-        .not()
-        .isEmpty(),
-    check('end-date', 'Il faut une date de fin')
-        .not()
-        .isEmpty(),
-    check('name', 'Il faut une date de fin')
-        .not()
-        .isEmpty()
-],addCourse);
 
 
 export default router;

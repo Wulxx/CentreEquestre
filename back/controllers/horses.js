@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import horseSchema from '../models/horse.js'
+import lessonsSchema from '../models/lessons.js'
 
 import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
@@ -32,13 +33,13 @@ export const createHorse = (req, res, next) => {
 }
 
 export const getHorse = (req, res, next) => {
-    const { cavalierId } = req.body;
-    let user;
-    horseSchema.find().all({ cavaliers : cavalierId }, (err, rep) => {
-        if(err){
-            return next(err)
-        } else{
-            user = rep
+    horseSchema.find({}, (error, data) => {
+        if (error) {
+            return next(error);
+            console.log(error)
+        }else {
+            res.json(data)
+            console.log('list founded')
         }
     })
 }

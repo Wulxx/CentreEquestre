@@ -9,10 +9,16 @@ const { response } = pkg;
 import expressValidator from 'express-validator';
 const { body } = expressValidator;
 
-export const superSignIn = (req,res) => {
-    console.log("Super sign")
+export const signAsSUperAdmin = (req,res ) => {
+    let { username } = req.body;
+    console.log(username)
+    let connexionWay = { username: username };
+    checkIfExist(req, res, connexionWay)
+
+}
+function checkIfExist (req, res, connexionWay) {
     let getUser;
-    superUserSchema.findOne({ status : "superAdmin"}).then(user => {
+    superUserSchema.findOne(connexionWay).then(user => {
         if (!user) {
             return res.status(401).json({
                 message: "Authentication failed"
@@ -26,8 +32,8 @@ export const superSignIn = (req,res) => {
                 message: "Authentication failed"
             });
         }
-        let connexionTokenBuilder = {userId: getUser._id}
-        let jwtToken = jwt.sign(connexionTokenBuilder, "f2qPmyRjN4UKmVwSD0ADvVcl64Vj4zWhK1hwr_DXJxm2mIbvECSBO0MzpueRsr32bGYO0e00ZtGt9b0Gr-OlJX3BS6MX-gxdLn0rsRtHlL4OM0YnxdrMW50Bb4xtZ1ZK3CzJVhvJtL042c6ujOon9zOQ0q2ApJnaELnUD727lv0MSFT3Zqf99e4Uegpa9XMLhenE38OrIk57A0S6_Q1awZrrQr_hl4fklnaiqjcDIqNfMYGaqrtUWnGWPXeYKhoph0PWRpEclIAGjU8w5TjYDlFETp8chrxWoa_40ZTYXW7-MRBqd0CPWCI1zQu9cIi6yBOXVUUf9B_WJ2a0MwGTHQSuperUser", {
+        let connexionTokenBuilder = {... connexionWay, userId: getUser._id}
+        let jwtToken = jwt.sign(connexionTokenBuilder, "2I3PgCH6EdCg1WNTtX62_QhHedax3UIShzfbYJHWx63zeeQkzQojwQltK486thuXwcOJq_AKTEELvrhAyd0cXK5FGg-3qC-eoWy2hKDhsO630cSsM3Bb8MMeGYRFa8DbSDEuFFO9jZfrEZWk5jx85ZtqamTuqvnyvBtwIMIs_i8SUperAdmin", {
             expiresIn: "1h"
         });
         console.log(jwtToken);
