@@ -3,24 +3,25 @@
 <mat-card-content>
 <form>
 <p>
-  <mat-form-field>
-    <input type="text" matInput placeholder="Username" formControlName="username" [value]="email">
-  </mat-form-field>
-
   <mat-form-field appearance="fill">
     <mat-label>Mode de connexion</mat-label>
-    <mat-select>
-      <mat-option value="option">Mail</mat-option>
-      <mat-option value="option">Numero de téléphone</mat-option>
-      <mat-option value="option">License</mat-option>
+    <mat-select #select selectionChange="identifiant" required>
+      <mat-option value="email">Mail</mat-option>
+      <mat-option value="phoneNumber">Numero de téléphone</mat-option>
     </mat-select>
     <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
   </mat-form-field>
 </p>
+<div *ngIf="select.value">
+  <mat-form-field>
+    <input type="text" matInput [placeholder]="currentConnexionMode" formControlName="username" #connexionMode (keyup)="onKey(connexionMode.value,select.value)">
+  </mat-form-field>
+</div>
+
 
 <p>
   <mat-form-field>
-    <input type="password" matInput placeholder="Password" formControlName="password">
+    <input type="password" matInput placeholder="Password" formControlName="password" #password (keyup)="onKey(password.value,'password')">
   </mat-form-field>
 </p>
 

@@ -4,6 +4,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {CoursesElement} from '../../../../../models/Courses';
 
 
+
+
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -12,7 +15,6 @@ import {CoursesElement} from '../../../../../models/Courses';
 export class CoursesComponent implements OnInit {
   @Input() public courses: CoursesElement[] = [];
   @Input() public isEditable = false;
-
 
   displayedColumns: string[] = ['Date', 'Cheval', 'Moniteur', 'Duree'];
   dataSource = new MatTableDataSource(this.courses);

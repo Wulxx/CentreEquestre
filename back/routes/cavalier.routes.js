@@ -14,7 +14,7 @@ const { check, validationResult } = pkg;
 router.route('/getCourses').get(authorize,getCourses)
 
 // Sign-in
-router.post("/signin",
+router.post("/signIn",
 [
     check('password', 'Password should t be isEmpty')
         .not()

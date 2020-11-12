@@ -1,7 +1,7 @@
 <div class="chevalContainer">
   <carousel>
     <div *ngFor="let content of contentList" class="carousel-cell">
-      <app-tiles [content]="content" (clicked)="handleClicked($event)"></app-tiles>
+      <app-tiles [name]="content.name" [image]="content.img" [id]="content.id" (clicked)="handleClicked($event)"></app-tiles>
     </div>
   </carousel>
 </div>

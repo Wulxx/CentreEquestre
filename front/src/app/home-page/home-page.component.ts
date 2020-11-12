@@ -16,9 +16,9 @@ import {HomeContentComponent} from './boxes/Users/home-content/home-content.comp
 
 export class HomePageComponent implements OnInit {
   isAdmin = false;
-  isUser = false;
+  isUser = true;
   isMonitor = false;
-  isSuperAdmin = true;
+  isSuperAdmin = false;
 
   constructor() { }
 

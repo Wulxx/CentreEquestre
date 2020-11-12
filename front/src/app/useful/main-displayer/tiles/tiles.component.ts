@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {MainContent} from '../../../../models/mainContent';
 
 @Component({
   selector: 'app-tiles',
@@ -7,7 +6,10 @@ import {MainContent} from '../../../../models/mainContent';
   styleUrls: ['./tiles.component.css']
 })
 export class TilesComponent implements OnInit {
-  @Input() public content: MainContent;
+  @Input() public image;
+  @Input() public name;
+  @Input() public id;
+  @Input() public type = 'horse';
   @Output() clicked: EventEmitter<Event> = new EventEmitter();
 
   divClicked(e): void{

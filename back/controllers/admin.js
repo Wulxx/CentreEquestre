@@ -13,7 +13,7 @@ import expressValidator from 'express-validator';
 const { body } = expressValidator;
 
 
-export const signAsAdmin = (res,rep ) => {
+export const signAsAdmin = (req,res ) => {
     let { email } = req.body;
 
     let connexionWay = { email: email };
@@ -42,9 +42,10 @@ function checkIfExist (req, res, connexionWay) {
         });
         console.log(jwtToken);
         res.status(200).json({
-            token: jwtToken,
-            expiresIn: 3600,
-            msg: getUser
+            id_token: jwtToken,
+            expiresIn: 36000,
+            msg: 'OK',
+            status: 200
         });
     }).catch(err => {
         console.log(err)
@@ -125,7 +126,7 @@ export const createAdmin = (req, res, next) => {
 export const searchUser = (req, res) => {
     console.log("get")
     var reg = new RegExp(req.body.searchInput,"i")
-    await userSchema.find({name : reg }, (error, response) => {
+    userSchema.find({name : reg }, (error, response) => {
         if(error){
             return next(error)
         } else {
@@ -137,7 +138,7 @@ export const searchUser = (req, res) => {
 export const getAdmin = (req, res) => {
     console.log("get")
     var reg = new RegExp(req.body.searchInput,"i")
-    await adminSchema.find({name : reg }, (error, response) => {
+    adminSchema.find({name : reg }, (error, response) => {
         if(error){
             return next(error)
         } else {

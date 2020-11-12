@@ -8,6 +8,6 @@ import  authorize from "../middlewares/admin.auth.js";
 import pkg from 'express-validator';
 import { signAsAdmin, searchUser, getAdmin } from '../controllers/admin.js'
 
-router.post('/signIn',authorize,signAsAdmin)
+router.post('/signIn',signAsAdmin)
 router.get('/searchArdmin', authorize, getAdmin)
 router.get('/searchUser', authorize, searchUser)

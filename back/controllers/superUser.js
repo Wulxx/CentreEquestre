@@ -32,9 +32,10 @@ export const superSignIn = (req,res) => {
         });
         console.log(jwtToken);
         res.status(200).json({
-            token: jwtToken,
-            expiresIn: 3600,
-            msg: getUser
+            id_token: jwtToken,
+            expiresIn: 36000,
+            msg: 'OK',
+            status: 200
         });
     }).catch(err => {
         console.log(err)

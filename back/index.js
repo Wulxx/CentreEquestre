@@ -8,11 +8,13 @@ import dbConfig from './database/db.js'
 import authAPI from './routes/auth.routes.js'
 import horsesAPI from './routes/horse.routes.js'
 import cavalierAPI from './routes/cavalier.routes.js'
+// import adminAPI from './routes/admin.routes.js'
+// import teacherAPI from './routes/teacher.routes.js'
 
 import  helmet from 'helmet';
 
 const app = express();
-const port = 4042;
+const port = 4043;
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -38,13 +40,14 @@ mongoose.set('useCreateIndex', true);
 
 app.use('/public',express.static('public'));
 app.use('/user', authAPI)
+// app.use('/admin', adminAPI)
+// app.use('/teacher', teacherAPI)
 app.use('/horses', horsesAPI)
-app.use('/cavlier', horsesAPI)
+app.use('/cavalier', cavalierAPI)
 
 // Express error handling
 app.use((req, res, next) => {
   setImmediate(() => {
-    console.log(req.headers.authorization)
     next(new Error('Something went wrong'));
   });
 });

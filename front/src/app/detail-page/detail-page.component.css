@@ -1,0 +1,9 @@
+.profilImg{
+  height: 15vh;
+  width: 15vh;
+  object-fit: cover;
+  display:block;
+  margin-top: 0;
+
+  border-radius: 50%;
+}

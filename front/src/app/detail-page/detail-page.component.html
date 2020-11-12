@@ -1,1 +1,37 @@
-<p>detail-page works!</p>
+<mat-grid-list cols="12">
+  <mat-grid-tile
+      [colspan]="2"
+      rowspan="5"
+      [style.background]="'white'">
+      <div>
+        <img src="https://images.unsplash.com/photo-1557374800-8ba4ccd60e9d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=610&q=80" class="profilImg" />
+        <p>Name</p>
+        <p>last Name</p>
+        <div>
+          <a routerLink="/Profil">Search</a>
+          <a routerLink="/Calendrier">Search</a>
+          <a routerLink="/Courses">Search</a>
+        </div>
+      </div>
+  </mat-grid-tile>
+  <mat-grid-tile
+  [colspan]="8"
+  rowspan="12"
+  [style.background]="'white'">
+    <router-outlet></router-outlet>
+  </mat-grid-tile>
+  <mat-grid-tile
+  [colspan]="2"
+  rowspan="12"
+  [style.background]="'white'">
+    <div class="rightContainer">
+      <p>Description de taile moyenne</p>
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip>One fish</mat-chip>
+        <mat-chip>Two fish</mat-chip>
+        <mat-chip color="primary" selected>Primary fish</mat-chip>
+        <mat-chip color="accent" selected>Accent fish</mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

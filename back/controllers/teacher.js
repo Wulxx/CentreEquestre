@@ -48,9 +48,10 @@ function checkIfExist (req, res, connexionWay) {
         });
         console.log(jwtToken);
         res.status(200).json({
-            token: jwtToken,
-            expiresIn: 3600,
-            msg: getUser
+            id_token: jwtToken,
+            expiresIn: 36000,
+            msg: 'OK',
+            status: 200
         });
     }).catch(err => {
         console.log(err)
@@ -61,8 +62,8 @@ function checkIfExist (req, res, connexionWay) {
 }
 
 
-export const getLessons = (req, res) => {
-    await lessonsSchema.find({passed : false}, (error, data) => {
+export const getLessons = async (req, res) => {
+     lessonsSchema.find({passed : false}, (error, data) => {
         if (error) {
             return next(error);
             console.log(error)
@@ -73,8 +74,8 @@ export const getLessons = (req, res) => {
     })
 }
 
-export const getMyLessons = (req, res) => {
-    await lessonsSchema.find({passed : false}, (error, data) => {
+export const getMyLessons = async (req, res) => {
+     lessonsSchema.find({passed : false}, (error, data) => {
         if (error) {
             return next(error);
             console.log(error)
@@ -90,7 +91,7 @@ export const getMyLessons = (req, res) => {
 export const asingHorse = (req, res) => {
     let currentHorse = req.body;
     currentHorse.courses.push({debut : "2020-10-10T19:30:00", end : "2020-10-10T20:30:00"})
-    await horseSchema.findByIdAndUpdate(horseId, {
+     horseSchema.findByIdAndUpdate(horseId, {
         $set: currentHorse
         }, (error, data) => {
         if (error) {

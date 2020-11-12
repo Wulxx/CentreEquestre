@@ -31,8 +31,7 @@ export const createUser = (req, res, next) => {
                     sendMail(req.body.email,req.body.firstName, "", false)
                     console.log("Created")
                     res.status(201).json({
-                        message: "User successfully created",
-                        result : responseFromPost
+                        message: "User successfully created"
                     });
                 }).catch(error => {
                     console.log("Not Created")
@@ -83,9 +82,10 @@ function checkIfExist (req, res, connexionWay) {
         });
         console.log(jwtToken);
         res.status(200).json({
-            token: jwtToken,
-            expiresIn: 3600,
-            msg: getUser
+            id_token: jwtToken,
+            expiresIn: 36000,
+            msg: 'OK',
+            status: 200
         });
     }).catch(err => {
         console.log(err)
@@ -156,9 +156,10 @@ export const superSignIn = (req,res, next) => {
         });
         console.log(jwtToken);
         res.status(200).json({
-            token: jwtToken,
-            expiresIn: 3600,
-            msg: getUser
+            id_token: jwtToken,
+            expiresIn: 36000,
+            msg: 'OK',
+            status: 200
         });
     }).catch(err => {
         console.log(err)

@@ -1,3 +1,7 @@
-<div class="chevalDiv" (click)="divClicked(content.id)">
-  <h1>{{content.name}}</h1>
+<div>
+  <a routerLink="/Detail" routerLinkActive="active" [queryParams]="{id: id}">
+    <div class="tileDisplay" (click)="divClicked(id)">
+      <h1>{{name}}</h1>
+    </div>
+  </a>
 </div>

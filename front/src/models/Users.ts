@@ -1,8 +1,15 @@
-export interface User{
+export interface UserCreation{
   name: string;
   lastName: string;
-  id: number;
   licenseNumber: string;
   email: string;
   phoneNumber: string;
+  password: string;
+}
+
+export interface UserLogin{
+  email: string;
+  userName: string;
+  phoneNumber: string;
+  password: string;
 }

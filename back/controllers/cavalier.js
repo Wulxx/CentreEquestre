@@ -2,7 +2,9 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import userSchema from '../models/cavalier.js'
 
-export const signAsCav = (res,rep ) => {
+export const signAsCav = (req,res ) => {
+    console.log("signak")
+
     let { email, number, licenseNumber } = req.body;
 
     if (email){
@@ -22,8 +24,8 @@ export const signAsCav = (res,rep ) => {
 function checkIfExist (req, res, connexionWay) {
     let getUser;
     userSchema.findOne(connexionWay).then(user => {
-        if (!user) {
-            return res.status(401).json({
+        if (user === undefined || user === null) {
+            return res.json({
                 message: "Authentication failed"
             });
         }
@@ -40,10 +42,12 @@ function checkIfExist (req, res, connexionWay) {
             expiresIn: "1h"
         });
         console.log(jwtToken);
+        res.cookie("SESSIONID", jwtToken, {httpOnly:true, secure:true});
         res.status(200).json({
-            token: jwtToken,
-            expiresIn: 3600,
-            msg: getUser
+            id_token: jwtToken,
+            expiresIn: 36000,
+            msg: 'OK',
+            status: 200
         });
     }).catch(err => {
         console.log(err)

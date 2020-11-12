@@ -5,16 +5,36 @@
     </div>
     <div class="loginTilesContainer">
       <mat-form-field appearance="fill">
-        <mat-label>Input</mat-label>
-        <input matInput>
+        <mat-label>Nom</mat-label>
+        <input matInput #lastName (keyup)="onKey(lastName.value,'lastName')">
+        <p>{{lastName.value}}</p>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Prenom</mat-label>
+        <input matInput #name (keyup)="onKey(name.value,'name')">
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
-        <mat-label>Input</mat-label>
-        <input matInput>
+        <mat-label>Numero de license</mat-label>
+        <input matInput  #license (keyup)="onKey(license.value,'licenseNumber')">
       </mat-form-field>
       <br>
-      <button mat-flat-button color="warn">Warn</button>
+      <mat-form-field appearance="fill">
+        <mat-label>Numero de téléphone</mat-label>
+        <input matInput  #phone (keyup)="onKey(phone.value,'phoneNumber')">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput #mail (keyup)="onKey(mail.value,'email')">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput #mdp (keyup)="onKey(mdp.value,'password')">
+      </mat-form-field>
+      <br>
+      <button mat-flat-button color="warn" (click)="submitLog()">Warn</button>
     </div>
   </div>
 </div>

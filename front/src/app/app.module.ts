@@ -29,6 +29,8 @@ import { HomeContentAdminComponent } from './home-page/boxes/Admin/home-content-
 import { HomeContentMonitorComponent } from './home-page/boxes/Monitor/home-content-monitor/home-content-monitor.component';
 import { HomeContentSuperAdminComponent } from './home-page/boxes/superAdmin/home-content-super-admin/home-content-super-admin.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
+import { ProfileComponent } from './detail-page/profile/profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -55,15 +57,17 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
     HomeContentAdminComponent,
     HomeContentMonitorComponent,
     HomeContentSuperAdminComponent,
-    DetailPageComponent
+    DetailPageComponent,
+    ProfileComponent,
 
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NgbModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,9 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './landing-page/loginSignUp/login/login.component';
 import { FirstFormeComponent } from './landing-page/loginSignUp/first-forme/first-forme.component';
+import { DetailPageComponent } from './detail-page/detail-page.component';
+import { ProfileComponent } from './detail-page/profile/profile.component';
+import { SignUpComponent } from './landing-page/loginSignUp/sign-up/sign-up.component';
 
 
 export const appRouteList: Routes = [
@@ -18,6 +21,10 @@ export const appRouteList: Routes = [
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'signUp',
+        component: SignUpComponent
       }
     ],
     data : {some_data : 'some value'}
@@ -25,6 +32,15 @@ export const appRouteList: Routes = [
   {
       path: 'home',
       component: HomePageComponent
+  },
+  {
+      path: 'Detail',
+      component: DetailPageComponent,
+      children: [
+        {path: '',
+        component: ProfileComponent
+      }
+      ]
   },
   {
       path: '**',
