@@ -5,7 +5,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
 let superUserSchema = new Schema({
-    name : {
+    username : {
         type : String,
         unique : true
     },
@@ -13,9 +13,9 @@ let superUserSchema = new Schema({
         type : String,
     }
 }, {
-    collection : 'admin'
+    collection : 'superAdmin'
 })
 
 
 superUserSchema.plugin(uniqueValidator, {message: 'Ce nom est déjà pris'});
-export default mongoose.model('Admin', superUserSchema)
+export default mongoose.model('SuperAdmin', superUserSchema)

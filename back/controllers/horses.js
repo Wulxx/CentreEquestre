@@ -30,3 +30,15 @@ export const createHorse = (req, res, next) => {
             res.send("Pas Ok");
         });
 }
+
+export const getHorse = (req, res, next) => {
+    const { cavalierId } = req.body;
+    let user;
+    horseSchema.find().all({ cavaliers : cavalierId }, (err, rep) => {
+        if(err){
+            return next(err)
+        } else{
+            user = rep
+        }
+    })
+}

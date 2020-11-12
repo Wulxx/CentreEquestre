@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import userSchema from '../models/cavalier.js'
+import teacherSchema from '../models/teacher.js'
+import adminSchema from '../models/admin.js'
+import superAdminSchema from '../models/superUser.js'
 
 import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
@@ -22,6 +25,88 @@ export const createUser = (req, res, next) => {
                 licenseNumber : req.body.licenseNumber,
                 email : req.body.email,
                 status: req.body.status,
+                password : hash,
+                courses : []
+            });
+
+            user.save()
+                .then((responseFromPost) => {
+                    sendMail(req.body.email,req.body.firstName, "", false)
+                    console.log("Created")
+                    res.status(201).json({
+                        message: "User successfully created"
+                    });
+                }).catch(error => {
+                    console.log("Not Created")
+                    console.log(error)
+                    res.status(500).json({
+                        error: error
+                    });
+                });
+        });
+}
+
+export const createAdmin = (req, res, next) => {
+    console.log("create")
+    bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+            const user = new adminSchema({
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+            });
+
+            user.save()
+                .then((responseFromPost) => {
+                    console.log("Created")
+                    res.status(201).json({
+                        message: "Admin successfully created"
+                    });
+                }).catch(error => {
+                    console.log("Not Created")
+                    console.log(error)
+                    res.status(500).json({
+                        error: error
+                    });
+                });
+        });
+}
+
+export const createSuperAdmin = (req, res, next) => {
+    console.log("create")
+    bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+            const user = new superAdminSchema({
+                username : req.body.name,
+                password: req.body.password
+            });
+
+            user.save()
+                .then((responseFromPost) => {
+                    console.log("Created")
+                    res.status(201).json({
+                        message: "SUper Admin successfully created"
+                    });
+                }).catch(error => {
+                    console.log("Not Created")
+                    console.log(error)
+                    res.status(500).json({
+                        error: error
+                    });
+                });
+        });
+}
+
+export const createTeacher = (req, res, next) => {
+    console.log("create")
+    bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+            const user = new teacherSchema({
+                firstName : req.body.firstName,
+                lastName : req.body.lastName,
+                number : req.body.number,
+                licenseNumber : req.body.licenseNumber,
+                email : req.body.email,
                 password : hash,
                 courses : []
             });

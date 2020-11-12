@@ -2,8 +2,11 @@
 import express from 'express'
 
 import  authorize from "../middlewares/superUser.auth.js";
+import pkg from 'express-validator';
 
-// import { signAsTeacher } from "../controllers/teacher.js"
+const { check, validationResult } = pkg;
+import { signAsTeacher, getLessons, getMyLessons, assingHorse, getHorses, updateTeacher, addCourse } from "../controllers/teacher.js"
+import { createHorse } from "../controllers/horses.js"
 
 const router = express.Router();
 
@@ -14,9 +17,66 @@ router.post("/signIn",
     check('password', 'Password should t be isEmpty')
         .not()
         .isEmpty()
-],() => {
-    console.log("sign as teacher")
-});
+],signAsTeacher);
+
+
+router.post("/assignHorse",
+[
+    check('horse_id', 'should t be isEmpty')
+        .not()
+        .isEmpty(),
+    check('cavalier_id', 'should t be isEmpty')
+    .not()
+    .isEmpty(),
+    check('lesson_id', 'should t be isEmpty')
+    .not()
+    .isEmpty()
+],assingHorse);
+
+router.put("/updateProfil",
+[
+    check('firstName')
+        .not()
+        .isEmpty()
+        .isLength({ min: 3 })
+        .withMessage('Name must be atleast 3 characters long'),
+    check('lastName')
+        .not()
+        .isEmpty()
+        .withMessage('Le nom doit être au moins long de deux caractères'),
+    check('email', 'Email is required')
+        .not()
+        .isEmpty(),
+    check('password', 'Password should be between 5 to 8 characters long')
+        .not()
+        .isEmpty()
+        .isLength({ min: 5, max: 8 })
+],updateTeacher);
+
+
+router.post("/createHorse",
+[
+    check('Name', 'Il faut un nom au dada')
+        .not()
+        .isEmpty()
+],createHorse);
+
+router.get("/lessons",getLessons)
+router.get("/myLessons",getMyLessons)
+router.get("/myHorses",getHorses)
+
+router.post("/createLesson",
+[
+    check('debut-date', 'Il faut une date de début')
+        .not()
+        .isEmpty(),
+    check('end-date', 'Il faut une date de fin')
+        .not()
+        .isEmpty(),
+    check('name', 'Il faut une date de fin')
+        .not()
+        .isEmpty()
+],addCourse);
 
 
 export default router;

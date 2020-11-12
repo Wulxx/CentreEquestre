@@ -80,9 +80,20 @@ export const deleteAdmin = (req, res, next ) => {
 })
 }
 
-export const getAdmin = (req, res) => {
+export const getAllAdmin = (req, res) => {
     console.log("get")
     adminSchema.find((error, response) => {
+        if(error){
+            return next(error)
+        } else {
+            res.status(200).json(response)
+        }
+    })
+}
+
+export const getAdmin = (req, res) => {
+    console.log("get")
+    adminSchema.find({name : req.body.search},(error, response) => {
         if(error){
             return next(error)
         } else {

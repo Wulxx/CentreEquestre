@@ -31,6 +31,8 @@ import { HomeContentSuperAdminComponent } from './home-page/boxes/superAdmin/hom
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { ProfileComponent } from './detail-page/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MosaicListComponent } from './overview/mosaic-list/mosaic-list.component';
+import { NormalListComponent } from './overview/normal-list/normal-list.component';
 
 
 
@@ -59,6 +61,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeContentSuperAdminComponent,
     DetailPageComponent,
     ProfileComponent,
+    MosaicListComponent,
+    NormalListComponent,
 
   ],
   imports: [

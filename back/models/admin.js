@@ -8,7 +8,7 @@ let adminSchema = new Schema({
     name : {
         type : String
     },
-    mail : {
+    email : {
         type : String,
         unique : true
     },

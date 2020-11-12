@@ -25,9 +25,9 @@ let teacherSchema = new Schema({
 
     }
 }, {
-    collection : 'users'
+    collection : 'teachers'
 })
 
 
 teacherSchema.plugin(uniqueValidator, {message: 'Email already in use.'});
-export default mongoose.model('User', teacherSchema)
+export default mongoose.model('Teacher', teacherSchema)

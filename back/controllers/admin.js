@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import horseSchema from '../models/horse.js'
-import userSchema from '../models/auth.js'
 import adminSchema from '../models/admin.js'
 import teacherSchema from '../models/teacher.js'
 
@@ -126,7 +125,7 @@ export const createAdmin = (req, res, next) => {
 export const searchUser = (req, res) => {
     console.log("get")
     var reg = new RegExp(req.body.searchInput,"i")
-    userSchema.find({name : reg }, (error, response) => {
+    teacherSchema.find({name : reg }, (error, response) => {
         if(error){
             return next(error)
         } else {

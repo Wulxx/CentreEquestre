@@ -1,18 +1,17 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import horseSchema from '../models/horse.js'
+import teacherSchema from '../models/teacher.js'
 
 import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
 const { response } = pkg;
 
 import expressValidator from 'express-validator';
-import { getLogger } from 'nodemailer/lib/shared';
+import { sendMail } from '../usefulServices/mail.js'
 const { body } = expressValidator;
 
-
-
-export const signAsTeacher = (res,rep ) => {
+export const signAsTeacher = (req,res ) => {
     let { email, number, licenseNumber } = req.body;
 
     if (email){
@@ -28,7 +27,7 @@ export const signAsTeacher = (res,rep ) => {
 }
 function checkIfExist (req, res, connexionWay) {
     let getUser;
-    adminSchema.findOne(connexionWay).then(user => {
+    teacherSchema.findOne(connexionWay).then(user => {
         if (!user) {
             return res.status(401).json({
                 message: "Authentication failed"
@@ -60,8 +59,6 @@ function checkIfExist (req, res, connexionWay) {
         });
     });
 }
-
-
 export const getLessons = async (req, res) => {
      lessonsSchema.find({passed : false}, (error, data) => {
         if (error) {
@@ -73,7 +70,6 @@ export const getLessons = async (req, res) => {
         }
     })
 }
-
 export const getMyLessons = async (req, res) => {
      lessonsSchema.find({passed : false}, (error, data) => {
         if (error) {
@@ -85,10 +81,7 @@ export const getMyLessons = async (req, res) => {
         }
     })
 }
-
-
-
-export const asingHorse = (req, res) => {
+export const assingHorse = (req, res) => {
     let currentHorse = req.body;
     currentHorse.courses.push({debut : "2020-10-10T19:30:00", end : "2020-10-10T20:30:00"})
      horseSchema.findByIdAndUpdate(horseId, {
@@ -149,8 +142,6 @@ export const updateTeacher = (req,res, next) => {
         }
     })
 }
-
-
 export const addCourse = (req, res) => {
     console.log("Add Course")
     const course = new lessonsSchema({
@@ -176,6 +167,4 @@ export const addCourse = (req, res) => {
                 error: error
             });
         });
-
-
 }

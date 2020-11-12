@@ -33,7 +33,4 @@ router.route('/:id').put(authorize, updateUser)
 router.route('/:id').delete(authorize, deleteUser)
 
 
-
-
-
 export default router;

@@ -8,8 +8,9 @@ import dbConfig from './database/db.js'
 import authAPI from './routes/auth.routes.js'
 import horsesAPI from './routes/horse.routes.js'
 import cavalierAPI from './routes/cavalier.routes.js'
-// import adminAPI from './routes/admin.routes.js'
-// import teacherAPI from './routes/teacher.routes.js'
+import adminAPI from './routes/admin.routes.js'
+import teacherAPI from './routes/teacher.routes.js'
+import superAdminAPI from './routes/superUser.routes.js'
 
 import  helmet from 'helmet';
 
@@ -40,10 +41,12 @@ mongoose.set('useCreateIndex', true);
 
 app.use('/public',express.static('public'));
 app.use('/user', authAPI)
-// app.use('/admin', adminAPI)
-// app.use('/teacher', teacherAPI)
+app.use('/admin', adminAPI)
+app.use('/teacher', teacherAPI)
 app.use('/horses', horsesAPI)
 app.use('/cavalier', cavalierAPI)
+app.use('/superAdmin', superAdminAPI)
+
 
 // Express error handling
 app.use((req, res, next) => {

@@ -8,5 +8,6 @@ const router = express.Router();
 
 
 router.route('/createHorse').post(authorize,createHorse)
+router.route('/getHorse').post(authorize,createHorse)
 
 export default router;
