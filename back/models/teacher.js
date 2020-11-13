@@ -5,7 +5,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
 let teacherSchema = new Schema({
-    firstName : {
+    name : {
         type : String,
 
     },
@@ -23,6 +23,8 @@ let teacherSchema = new Schema({
     password : {
         type : String,
 
+    },courses : {
+        type : Array
     }
 }, {
     collection : 'teachers'

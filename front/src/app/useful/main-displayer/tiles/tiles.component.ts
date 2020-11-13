@@ -9,7 +9,7 @@ export class TilesComponent implements OnInit {
   @Input() public image;
   @Input() public name;
   @Input() public id;
-  @Input() public type = 'horse';
+  @Input() public type;
   @Output() clicked: EventEmitter<Event> = new EventEmitter();
 
   divClicked(e): void{

@@ -1,1 +1,1 @@
-<app-courses [courses]="COURSES_DATA"></app-courses>
+<app-courses [courses]="mylessons" *ngIf="mylessons.length >= 1" [owned]="true" [isMonitor]="isMonitor" [type]="type"></app-courses>

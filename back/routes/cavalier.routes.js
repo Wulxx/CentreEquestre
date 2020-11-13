@@ -6,12 +6,9 @@ import lessonsSchema from '../models/lessons.js'
 const router = express.Router();
 import  authorize from "../middlewares/user.auth.js";
 import pkg from 'express-validator';
-import { getUser,getUserById,signAsCav, updateUser, deleteUser, sendPassWord, getCourses } from '../controllers/cavalier.js'
+import { getUser,getUserById,signAsCav, updateUser, deleteUser, sendPassWord, registerToCourse, suppressFromCourse } from '../controllers/cavalier.js'
 
 const { check, validationResult } = pkg;
-
-// Get Users
-router.route('/getCourses').get(authorize,getCourses)
 
 // Sign-in
 router.post("/signIn",
@@ -22,9 +19,16 @@ router.post("/signIn",
 ], signAsCav);
 
 router.route('/passwordForgotten').post(sendPassWord)
+router.route('/register/:id').post(registerToCourse)
+router.route('/suppress/:id').post(suppressFromCourse)
+
+
+
+// Get Users
+router.route('/cavaliers').get(authorize, getUser)
 
 // Get Single User
-router.route('/:id').get(authorize, getUserById)
+router.route('/:id').get( getUserById)
 
 // Update User
 router.route('/:id').put(authorize, updateUser)

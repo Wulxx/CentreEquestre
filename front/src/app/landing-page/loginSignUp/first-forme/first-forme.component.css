@@ -1,11 +1,8 @@
 .landingPageContainer{
   width: 50%;
-  height: 50vh;
+  height: 100vh;
   display:block;
-  margin-left: auto;
-  margin-right:auto;
   background-color:white;
-  border-radius: 50px;
   padding: 50px;
 }
 
@@ -37,10 +34,19 @@
   text-align: center;
   font-size: xx-large;
   font-weight: bold;
-  background-color:red;
   border-radius: 10px;
+  background: linear-gradient(217deg, rgba(4, 155, 42, 0.8), rgb(142, 200, 255) 70.71%);
   color: white;
 }
+
+#forgot .connexionTile{
+  background: linear-gradient(217deg, rgba(4, 155, 42, 0), rgba(142, 200, 255, 0) 70.71%);
+  font-size: 24px;
+  font-weight: light;
+  color: black;
+
+}
+
 
 .connexionTile:hover{
   background-color:black;

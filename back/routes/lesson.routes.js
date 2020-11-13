@@ -3,12 +3,14 @@ import express from 'express'
 import pkg from 'express-validator';
 
 const { check, validationResult } = pkg;
-import { getLessons, addLesson } from "../controllers/lessons.js"
+import { getLessons, addLesson, getLessonById } from "../controllers/lessons.js"
 
 const router = express.Router();
 
 
 router.get("/lessons",getLessons)
+
+router.get("/lesson/:id",getLessonById)
 
 
 router.post("/createLesson",

@@ -1,18 +1,20 @@
-<div class="horsesDiv box">
-  <app-big-title [title] = "'Nos chevaux'"></app-big-title>
-  <app-main-displayer [contentList]="horses"></app-main-displayer>
-</div>
-<div class="boxesGrid">
-<div class="storyDiv box mediumBox">
-  <app-big-title [title] = "'Mes cours'"></app-big-title>
-  <div>
-    <app-my-courses></app-my-courses>
+<div *ngIf="cavalier !== undefined">
+  <div class="horsesDiv box">
+    <app-big-title [title] = "'Nos chevaux'"></app-big-title>
+    <app-main-displayer  *ngIf="horses.length >= 1" [contentList]="horses" [type]="'Horse'"></app-main-displayer>
   </div>
-</div>
-<div class="teamDiv box mediumBox">
-  <app-big-title [title] = "'Prochains cours'"></app-big-title>
-  <div>
-    <app-next-courses></app-next-courses>
+  <div class="boxesGrid">
+  <div class="storyDiv box mediumBox">
+    <app-big-title [title] = "'Mes cours'"></app-big-title>
+    <div>
+      <app-my-courses [lessons]="myLessons" *ngIf="myLessons.length >= 1" [type]="'lessons'"></app-my-courses>
+    </div>
   </div>
-</div>
+  <div class="teamDiv box mediumBox">
+    <app-big-title [title] = "'Prochains cours'"></app-big-title>
+    <div>
+      <app-next-courses [lessons]="allLessons" *ngIf="allLessons.length >= 1" [type]="'lessons'"></app-next-courses>
+    </div>
+  </div>
+  </div>
 </div>

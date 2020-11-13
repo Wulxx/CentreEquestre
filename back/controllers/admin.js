@@ -43,7 +43,8 @@ function checkIfExist (req, res, connexionWay) {
             id_token: jwtToken,
             expiresIn: 36000,
             msg: 'OK',
-            status: 200
+            status: 'Admin',
+            id: getUser._id
         });
     }).catch(err => {
         console.log(err)
@@ -56,7 +57,7 @@ function checkIfExist (req, res, connexionWay) {
 export const createTeacher = (req, res, next) => {
     console.log("create Teacher")
     const teacher = new teacherSchema({
-        firstName : req.body.firstName,
+        name : req.body.name,
         lastName : req.body.lastName,
         number : req.body.number,
         email : req.body.email,
@@ -126,7 +127,24 @@ export const searchUser = (req, res) => {
     var reg = new RegExp(req.body.searchInput,"i")
     teacherSchema.find({name : reg }, (error, response) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
+        } else {
+            res.status(200).json(response)
+        }
+    }).exec()
+}
+
+
+export const getAllAdmin = (req, res) => {
+    console.log("get")
+    var reg = new RegExp(req.body.searchInput,"i")
+    adminSchema.find({ }, (error, response) => {
+        if(error){
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }
@@ -138,7 +156,9 @@ export const getAdmin = (req, res) => {
     var reg = new RegExp(req.body.searchInput,"i")
     adminSchema.find({name : reg }, (error, response) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }
@@ -146,14 +166,16 @@ export const getAdmin = (req, res) => {
 }
 
 export const getProfil = (req,res) => {
-    console.log("getProfil")
-    var getProfil = adminSchema.findById(req.body._id, (err, res) => {
+    console.log("getProfil" + req.params.id)
+    adminSchema.findOne({ _id: req.params.id}, (error, response) => {
         if(error){
-            res.status(403).json(response)
-        }else{
-            res.send(getProfil)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
+        } else {
+            res.status(200).json(response)
         }
-    })
+    }).exec()
 }
 
 export const updateAdmin = (req,res, next) => {
@@ -163,7 +185,9 @@ export const updateAdmin = (req,res, next) => {
     }, (error, data) => {
         if (error) {
             console.log(error)
-            return next(error);
+            return res.status(401).json({
+            message: "Authentication failed"
+        });;
         }else {
             res.json(data)
             console.log('user successfully updated !')

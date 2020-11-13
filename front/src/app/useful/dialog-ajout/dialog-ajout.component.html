@@ -1,0 +1,10 @@
+<h1 mat-dialog-title *ngIf="!data.owned">Souhaitez vous vraiment vous inscrire ? </h1>
+<h1 mat-dialog-title *ngIf="data.owned">Souhaitez vous vraiment supprimer ? </h1>
+<div mat-dialog-content>
+  <app-sign-up [type] = "type"></app-sign-up>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close color="warn" (click)="registerToCourse()" *ngIf="data.owned && data.status !== 'admin'">OUI</button>
+  <button mat-button mat-dialog-close color="warn" (click)="suppressFromCourse()" *ngIf="!data.owned && data.status !== 'admin'">OUI</button>
+  <button mat-stroked-button mat-dialog-close>NON</button>
+</div>

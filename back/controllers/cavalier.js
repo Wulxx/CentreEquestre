@@ -48,7 +48,8 @@ function checkIfExist (req, res, connexionWay) {
             id_token: jwtToken,
             expiresIn: 36000,
             msg: 'OK',
-            status: 200
+            status: 'User',
+            id: getUser._id
         });
     }).catch(err => {
         console.log(err)
@@ -58,23 +59,14 @@ function checkIfExist (req, res, connexionWay) {
     });
 }
 
-export const getCourses = (req, res) => {
-    const { cavalierId } = req.body;
-    let user;
-    lessonsSchema.find({ cavaliers : cavalierId }, (err, rep) => {
-        if(err){
-            return next(err)
-        } else{
-            user = rep
-        }
-    })
-}
 
 export const getUser = (req, res) => {
     console.log("get")
     userSchema.find((error, response) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }
@@ -85,9 +77,11 @@ export const sendPassWord = (req,res) => {
     console.log(req.body.email)
     userSchema.findOne({email : req.body.email},(error, response) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
-            sendMail(response.email,response.firstName, response.password, true)
+            sendMail(response.email,response.name, response.password, true)
             res.status(200).json({ status : "well sent"})
         }
     })
@@ -97,11 +91,11 @@ export const getUserById = (req, res, next) => {
     console.log("getById")
     userSchema.findById(req.params.id , (error, data) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
-            res.status(200).json({
-                msg : data
-            })
+            res.status(200).json(data)
         }
     })
 }
@@ -109,10 +103,48 @@ export const deleteUser = (req,res) => {
     console.log("Delete")
         userSchema.findByIdAndDelete(req.params.id, (error, data) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         }else{
             res.json(data)
             console.log("Well deleted")
+        }
+    })
+}
+
+export const registerToCourse = (req,res, next) => {
+    console.log("addCourse")
+    console.log(req.body)
+    userSchema.findByIdAndUpdate({ _id: req.body.user }, {
+        $push: { courses: req.body.lessonsId}
+    }, (error, data) => {
+        if (error) {
+            console.log(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
+        }else {
+            res.json(data)
+            console.log('user successfully updated !')
+        }
+    })
+}
+
+export const suppressFromCourse = (req,res, next) => {
+    console.log("addCourse")
+    console.log(req.body)
+    userSchema.findByIdAndUpdate({ _id: req.body.user }, {
+        $pull: { courses: req.body.lessonsId}
+    }, (error, data) => {
+        if (error) {
+            console.log(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
+        }else {
+            res.json(data)
+            console.log('user successfully updated !')
         }
     })
 }
@@ -125,7 +157,9 @@ export const updateUser = (req,res, next) => {
     }, (error, data) => {
         if (error) {
             console.log(error)
-            return next(error);
+            return res.status(401).json({
+            message: "Authentication failed"
+        });;
         }else {
             res.json(data)
             console.log('user successfully updated !')

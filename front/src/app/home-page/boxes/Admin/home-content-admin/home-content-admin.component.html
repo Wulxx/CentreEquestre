@@ -1,22 +1,22 @@
 <div class="horsesDiv box">
   <app-big-title [title] = "'Les Moniteurs'"></app-big-title>
-  <app-main-displayer></app-main-displayer>
+  <app-main-displayer *ngIf="Moniteurs.length >= 1" [contentList]="Moniteurs" [type]="'Teacher'" ></app-main-displayer>
 </div>
 <div class="horsesDiv box">
   <app-big-title [title] = "'Les Admins'"></app-big-title>
-  <app-main-displayer></app-main-displayer>
+  <app-main-displayer *ngIf="Admins.length >= 1" [contentList]="Admins" [type]="'Admin'"></app-main-displayer>
 </div>
 <div class="boxesGrid">
 <div class="storyDiv box mediumBox">
   <app-big-title [title] = "'Rechercher Admin'"></app-big-title>
   <div>
-    <app-my-courses></app-my-courses>
+    <app-my-courses [lessons]="Admins" *ngIf="Admins.length >= 1" [isAdmin]="true" [isMonitor]="true" [type]="'Admin'"></app-my-courses>
   </div>
 </div>
 <div class="teamDiv box mediumBox">
-  <app-big-title [title] = "'Rechercher Moniteurs'"></app-big-title>
-  <div>
-    <app-next-courses></app-next-courses>
+    <app-big-title [title] = "'Rechercher Moniteurs'"></app-big-title>
+    <div>
+      <app-my-courses [lessons]="Moniteurs" *ngIf="Moniteurs.length >= 1" [isAdmin]="true" [isMonitor]="true" [type]="'Teacher'"></app-my-courses>
+    </div>
   </div>
-</div>
 </div>

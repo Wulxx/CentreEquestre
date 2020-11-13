@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {Cheval} from '../../models/cheval';
 
 
@@ -24,9 +25,16 @@ export class DetailPageComponent implements OnInit {
     {text: 'Three', cols: 3, rows: 12, color: 'lightpink'},
   ];
 
-  constructor() { }
+  type: string;
+  id: string;
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.type = params.type;
+      this.id = params.id;
+    });
   }
 
 }

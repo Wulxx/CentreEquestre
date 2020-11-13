@@ -19,7 +19,7 @@ export const createUser = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
             const user = new userSchema({
-                firstName : req.body.firstName,
+                name : req.body.name,
                 lastName : req.body.lastName,
                 number : req.body.number,
                 licenseNumber : req.body.licenseNumber,
@@ -31,7 +31,7 @@ export const createUser = (req, res, next) => {
 
             user.save()
                 .then((responseFromPost) => {
-                    sendMail(req.body.email,req.body.firstName, "", false)
+                    sendMail(req.body.email,req.body.name, "", false)
                     console.log("Created")
                     res.status(201).json({
                         message: "User successfully created"
@@ -53,7 +53,7 @@ export const createAdmin = (req, res, next) => {
             const user = new adminSchema({
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password,
+                password: hash,
             });
 
             user.save()
@@ -78,7 +78,7 @@ export const createSuperAdmin = (req, res, next) => {
         .then((hash) => {
             const user = new superAdminSchema({
                 username : req.body.email,
-                password: req.body.password
+                password: hash
             });
 
             user.save()
@@ -102,7 +102,7 @@ export const createTeacher = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
             const user = new teacherSchema({
-                firstName : req.body.firstName,
+                name : req.body.name,
                 lastName : req.body.lastName,
                 number : req.body.number,
                 licenseNumber : req.body.licenseNumber,
@@ -113,7 +113,7 @@ export const createTeacher = (req, res, next) => {
 
             user.save()
                 .then((responseFromPost) => {
-                    sendMail(req.body.email,req.body.firstName, "", false)
+                    sendMail(req.body.email,req.body.name, "", false)
                     console.log("Created")
                     res.status(201).json({
                         message: "User successfully created"
@@ -170,7 +170,8 @@ function checkIfExist (req, res, connexionWay) {
             id_token: jwtToken,
             expiresIn: 36000,
             msg: 'OK',
-            status: 200
+            status: 200,
+            id: getUser._id
         });
     }).catch(err => {
         console.log(err)
@@ -186,7 +187,9 @@ export const getUser = (req, res) => {
     console.log("get")
     userSchema.find((error, response) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }
@@ -197,7 +200,9 @@ export const getUserById = (req, res, next) => {
     console.log("getById")
     userSchema.findById(req.params.id , (error, data) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json({
                 msg : data
@@ -210,7 +215,9 @@ export const deleteUser = (req,res) => {
     console.log("Delete")
         userSchema.findByIdAndDelete(req.params.id, (error, data) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         }else{
             res.json(data)
             console.log("Well deleted")
@@ -244,7 +251,8 @@ export const superSignIn = (req,res, next) => {
             id_token: jwtToken,
             expiresIn: 36000,
             msg: 'OK',
-            status: 200
+            status: 200,
+            id: getUser._id
         });
     }).catch(err => {
         console.log(err)
@@ -263,7 +271,9 @@ export const updateUser = (req,res, next) => {
     }, (error, data) => {
         if (error) {
             console.log(error)
-            return next(error);
+            return res.status(401).json({
+            message: "Authentication failed"
+        });;
         }else {
             res.json(data)
             console.log('user successfully updated !')

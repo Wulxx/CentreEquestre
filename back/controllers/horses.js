@@ -33,9 +33,12 @@ export const createHorse = (req, res, next) => {
 }
 
 export const getHorse = (req, res, next) => {
+console.log("get lefkors")
     horseSchema.find({}, (error, data) => {
         if (error) {
-            return next(error);
+            return res.status(401).json({
+            message: "Authentication failed"
+        });;
             console.log(error)
         }else {
             res.json(data)
@@ -43,3 +46,18 @@ export const getHorse = (req, res, next) => {
         }
     })
 }
+
+export const getHorseById = (req, res, next) => {
+    console.log("get wors")
+        horseSchema.findOne({_id: req.params.id}, (error, data) => {
+            if (error) {
+                return res.status(401).json({
+            message: "Authentication failed"
+        });;
+                console.log(error)
+            }else {
+                res.json(data)
+                console.log(data)
+            }
+        })
+    }

@@ -14,7 +14,7 @@ const { check, validationResult } = pkg;
 // Sign-up
 router.post("/createUser",
     [
-        check('firstName')
+        check('name')
             .not()
             .isEmpty()
             .isLength({ min: 3 })
@@ -36,7 +36,7 @@ router.post("/createUser",
 
 router.post("/createTeacher",
     [
-        check('firstName')
+        check('name')
             .not()
             .isEmpty()
             .isLength({ min: 3 })
@@ -53,7 +53,7 @@ router.post("/createTeacher",
 
 router.post("/createAdmin",
     [
-        check('firstName')
+        check('name')
             .not()
             .isEmpty()
             .isLength({ min: 3 })
@@ -73,7 +73,7 @@ router.post("/createAdmin",
 
 router.post("/createSuperAdmin",
     [
-        check('firstName')
+        check('name')
             .not()
             .isEmpty()
             .isLength({ min: 3 })
@@ -94,7 +94,9 @@ router.post("/createSuperAdmin",
 router.route('/').get(authorize, (req, res) => {
     userSchema.find((error, response) => {
         if (error) {
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }

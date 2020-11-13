@@ -1,0 +1,6 @@
+<div class="teamDiv box mediumBox">
+  <app-big-title [title] = "'Prochains cours'"></app-big-title>
+  <div>
+    <app-next-courses [lessons]="allLessons" *ngIf="allLessons.length >= 1" [type]="'lessons'"></app-next-courses>
+  </div>
+</div>

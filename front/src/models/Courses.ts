@@ -1,6 +1,14 @@
 export interface CoursesElement {
-  Date: string;
-  Cheval: string;
-  Moniteur: string;
-  Duree: string;
+  name: string;
+  assignedMonitor: string;
+  debutDate: string;
+  endDate: string;
+  _id: string;
+  horses: [];
+  students: [];
+}
+
+export interface DialogData {
+  user: string;
+  lessonsId: string;
 }

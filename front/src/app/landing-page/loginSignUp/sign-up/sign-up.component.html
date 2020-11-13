@@ -4,7 +4,7 @@
       <p>Connexion</p>
     </div>
     <div class="loginTilesContainer">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="type === undefined">
         <mat-label>Nom</mat-label>
         <input matInput #lastName (keyup)="onKey(lastName.value,'lastName')">
         <p>{{lastName.value}}</p>
@@ -14,12 +14,12 @@
         <input matInput #name (keyup)="onKey(name.value,'name')">
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="type === undefined">
         <mat-label>Numero de license</mat-label>
         <input matInput  #license (keyup)="onKey(license.value,'licenseNumber')">
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="type === undefined">
         <mat-label>Numero de téléphone</mat-label>
         <input matInput  #phone (keyup)="onKey(phone.value,'phoneNumber')">
       </mat-form-field>
@@ -34,7 +34,7 @@
         <input matInput #mdp (keyup)="onKey(mdp.value,'password')">
       </mat-form-field>
       <br>
-      <button mat-flat-button color="warn" (click)="submitLog()">Warn</button>
+      <button mat-flat-button color="warn" (click)="submitLog()">Ajouter</button>
     </div>
   </div>
 </div>

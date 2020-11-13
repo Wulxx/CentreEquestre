@@ -25,6 +25,7 @@ function checkIfExist (req, res, connexionWay) {
             });
         }
         getUser = user;
+        console.log(getUser)
         return bcrypt.compare(req.body.password, user.password);
     }).then(response => {
         if (!response) {
@@ -41,7 +42,8 @@ function checkIfExist (req, res, connexionWay) {
             id_token: jwtToken,
             expiresIn: 36000,
             msg: 'OK',
-            status: 200
+            status: 'superUser',
+            id: getUser._id
         });
     }).catch(err => {
         console.log(err)
@@ -78,7 +80,9 @@ export const deleteAdmin = (req, res, next ) => {
     console.log("delete Admin")
     adminSchema.findByIdAndDelete(req.params.id, (error, data) => {
     if(error){
-        return next(error)
+        return res.status(401).json({
+            message: "Authentication failed"
+        });
     }else{
         res.json(data)
         console.log("Well deleted")
@@ -90,7 +94,9 @@ export const getAllAdmin = (req, res) => {
     console.log("get")
     adminSchema.find((error, response) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }
@@ -101,7 +107,9 @@ export const getAdmin = (req, res) => {
     console.log("get")
     adminSchema.find({name : req.body.search},(error, response) => {
         if(error){
-            return next(error)
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }

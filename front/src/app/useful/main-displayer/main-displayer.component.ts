@@ -9,6 +9,7 @@ import { MatSliderModule } from '@angular/material/slider';
 })
 export class MainDisplayerComponent implements OnInit {
   @Input() public contentList: [] = [];
+  @Input() public type: string;
 
   constructor() { }
 

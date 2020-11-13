@@ -18,6 +18,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatBadgeModule} from '@angular/material/badge';
 
 
+
 @NgModule({
   imports: [
     MatSliderModule,

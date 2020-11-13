@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {CoursesComponent} from '../courses/courses.component';
 import {CoursesElement} from '../../../../../models/Courses';
+import { GetDataService } from '../../../../get-data.service';
 
 @Component({
   selector: 'app-next-courses',
@@ -8,27 +9,11 @@ import {CoursesElement} from '../../../../../models/Courses';
   styleUrls: ['./next-courses.component.css']
 })
 export class NextCoursesComponent implements OnInit {
-  COURSES_DATA: CoursesElement[] = [
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '11/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Monique', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Simone', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '11/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Monique', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Simone', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '11/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Monique', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Simone', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '11/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Monique', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Simone', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'}
-  ];
+  @Input() public lessons: CoursesElement[];
+  @Input() public isMonitor;
+  @Input() public type;
 
-  constructor() { }
+  constructor(private getDataClient: GetDataService) { }
 
   ngOnInit(): void {
   }

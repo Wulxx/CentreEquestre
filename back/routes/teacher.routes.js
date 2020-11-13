@@ -5,11 +5,19 @@ import  authorize from "../middlewares/superUser.auth.js";
 import pkg from 'express-validator';
 
 const { check, validationResult } = pkg;
-import { signAsTeacher, assingHorse, getHorses, updateTeacher } from "../controllers/teacher.js"
+import { signAsTeacher, assingHorse, updateTeacher, getTeachers, getTeacher, createLesson } from "../controllers/teacher.js"
 import { createHorse } from "../controllers/horses.js"
 
 const router = express.Router();
+router.get("/teachers",getTeachers);
+router.get("/teachers/:id",getTeacher);
 
+router.post("/create/:id",
+[
+    check('password', 'Password should t be isEmpty')
+        .not()
+        .isEmpty()
+],createLesson);
 
 // Sign-in
 router.post("/signIn",
@@ -35,7 +43,7 @@ router.post("/assignHorse",
 
 router.put("/updateProfil",
 [
-    check('firstName')
+    check('name')
         .not()
         .isEmpty()
         .isLength({ min: 3 })
@@ -53,15 +61,6 @@ router.put("/updateProfil",
         .isLength({ min: 5, max: 8 })
 ],updateTeacher);
 
-
-router.post("/createHorse",
-[
-    check('Name', 'Il faut un nom au dada')
-        .not()
-        .isEmpty()
-],createHorse);
-
-router.get("/myHorses",getHorses)
 
 
 export default router;

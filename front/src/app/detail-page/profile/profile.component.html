@@ -2,9 +2,9 @@
   <div class="detailBoxe">
     <div>
       <p class="DetailTitle">Ses informations</p>
-      <div class="informationContainer" *ngFor="let info of informations">
-        <p class="informationTitle">{{info.title}}</p>
-        <p class="informationDescription">{{info.description}}</p>
+      <div class="informationContainer" *ngIf="informations">
+        <p class="informationTitle">{{informations.name}}</p>
+
       </div>
     </div>
   </div>

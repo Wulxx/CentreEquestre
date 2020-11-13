@@ -1,5 +1,7 @@
 export interface Cheval {
   name: string;
   img: string;
-  id: number;
+  _id: number;
+  assignedMonitor: string;
+  courses: [];
 }

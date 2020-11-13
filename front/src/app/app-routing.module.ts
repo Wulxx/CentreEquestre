@@ -8,6 +8,7 @@ import { FirstFormeComponent } from './landing-page/loginSignUp/first-forme/firs
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { ProfileComponent } from './detail-page/profile/profile.component';
 import { SignUpComponent } from './landing-page/loginSignUp/sign-up/sign-up.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 export const appRouteList: Routes = [
@@ -39,7 +40,13 @@ export const appRouteList: Routes = [
       children: [
         {path: '',
         component: ProfileComponent
-      }
+      },
+      {path: 'calendar',
+      component: CalendarComponent
+    },
+    {path: 'profil',
+    component: ProfileComponent
+  }
       ]
   },
   {
@@ -55,7 +62,7 @@ export const appRouteList: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(appRouteList,
-      { enableTracing: true }) // <-- debugging purposes only)
+      { enableTracing: false }) // <-- debugging purposes only)
   ],
   exports: [
     RouterModule

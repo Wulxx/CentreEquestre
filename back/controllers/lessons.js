@@ -12,9 +12,12 @@ import { sendMail } from '../usefulServices/mail.js'
 const { body } = expressValidator;
 
 export const getLessons = (req, res) => {
+    console.log("get lesons")
     lessonsSchema.find({}, (error, data) => {
         if (error) {
-            return next(error);
+            return res.status(401).json({
+            message: "Authentication failed"
+        });;
             console.log(error)
         }else {
             res.json(data)
@@ -22,6 +25,23 @@ export const getLessons = (req, res) => {
         }
     })
 }
+
+export const getLessonById = (req, res) => {
+    console.log("look by")
+    console.warn(req.params.id)
+    lessonsSchema.findOne({ _id : req.params.id}, (error, data) => {
+        if (error) {
+            return res.status(401).json({
+            message: "Authentication failed"
+        });;
+            console.log(error)
+        }else {
+            res.json(data)
+            console.log('list founded')
+        }
+    })
+}
+
 
 export const addLesson = (req, res) => {
     console.log("Add Course")

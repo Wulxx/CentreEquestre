@@ -30,9 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   submit() {
     this.UserService.userLogIn(this.signUpValue, this.type)
     .subscribe(retour => {
-      const res = retour;
-      console.log(res);
-      if (res.status === 200){
+      if (retour['status'] !== undefined){
           this.router.navigate(['/home']);
       }
     }

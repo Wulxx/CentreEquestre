@@ -33,6 +33,18 @@ import { ProfileComponent } from './detail-page/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MosaicListComponent } from './overview/mosaic-list/mosaic-list.component';
 import { NormalListComponent } from './overview/normal-list/normal-list.component';
+import { LessonComponent } from './detail-page/lesson/lesson.component';
+import { ForgottenComponent } from './landing-page/loginSignUp/forgotten/forgotten.component';
+import { DialogComponent } from './useful/dialog/dialog.component';
+import { DialogAjoutComponent } from './useful/dialog-ajout/dialog-ajout.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
+
+export function momentAdapterFactory() {
+  return adapterFactory(moment);
+};
 
 
 
@@ -63,6 +75,11 @@ import { NormalListComponent } from './overview/normal-list/normal-list.componen
     ProfileComponent,
     MosaicListComponent,
     NormalListComponent,
+    LessonComponent,
+    ForgottenComponent,
+    DialogComponent,
+    DialogAjoutComponent,
+    CalendarComponent,
 
   ],
   imports: [
@@ -72,6 +89,7 @@ import { NormalListComponent } from './overview/normal-list/normal-list.componen
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
   providers: [],
   bootstrap: [AppComponent]

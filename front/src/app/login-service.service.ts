@@ -29,7 +29,7 @@ export class LoginServiceService {
 
     /** POST: add a new hero to the server */
   public createAccount(user: UserCreation): Observable<UserCreation> {
-      return this.http.post<UserCreation>('http://localhost:4043/user/create', user, this.httpOptions);
+      return this.http.post<UserCreation>('http://localhost:4043/user/createUser', user, this.httpOptions);
     }
 
     // tslint:disable-next-line:typedef
@@ -37,6 +37,8 @@ export class LoginServiceService {
       const expiresAt = moment().add(authResult.expiresIn, 'second');
 
       localStorage.setItem('id_token', authResult.id_token);
+      localStorage.setItem('currentId', authResult.id);
+      localStorage.setItem('status', authResult.status);
       localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
   }
 
@@ -44,6 +46,8 @@ export class LoginServiceService {
   logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('currentId');
+    localStorage.removeItem('status');
 }
 
 // tslint:disable-next-line:typedef

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LoginServiceService } from '../../../login-service.service';
 import {UserCreation} from '../../../../models/Users';
 
@@ -11,7 +11,7 @@ import {UserCreation} from '../../../../models/Users';
 
 export class SignUpComponent implements OnInit {
   signUpValue: UserCreation = {name: '', lastName: '', licenseNumber: '', email: '', phoneNumber: '', password: ''};
-
+  @Input() public type: string;
   playerName: string;
 
   submitLog(){

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import pkg from 'mongoose';
 const {Schema} = pkg;
+import uniqueValidator from 'mongoose-unique-validator';
 const schema = mongoose.Schema;
 
 let lessonsSchema = new Schema({

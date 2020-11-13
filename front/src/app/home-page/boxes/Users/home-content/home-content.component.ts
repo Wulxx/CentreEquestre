@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { GetDataService } from '../../../../get-data.service';
+import {Cheval} from '../../../../../models/cheval';
+import {CoursesElement} from '../../../../../models/Courses';
+import {Cavalier} from '../../../../../models/cavalier';
 
 @Component({
   selector: 'app-home-content',
@@ -7,13 +11,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeContentComponent implements OnInit {
 
-  horses = [{name: 'horse', id: 0, img: 'https://images.unsplash.com/photo-1553284965-5dd8352ff1bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'},
-  {name: 'tonner', id: 1, img: 'https://images.unsplash.com/photo-1553284965-5dd8352ff1bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'},
-  {name: 'champs', id: 2, img: 'https://images.unsplash.com/photo-1553284965-5dd8352ff1bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}];
+  horses: Cheval[] = [];
+  allLessons: CoursesElement[] = [];
+  cavalier: Cavalier;
+  myLessons: CoursesElement[] = [];
 
-  constructor() { }
+  constructor(private clientData: GetDataService) { }
+
+  getHorsesData(){
+    console.warn("Début requete");
+    this.clientData.getHorses()
+      .subscribe(retour => {
+        this.setValues(retour);
+        console.warn('cheval');
+        console.warn(retour);
+      } );
+  }
+
+  getCourses(){
+    console.warn("Début requete");
+    this.clientData.getlessons()
+      .subscribe(retour => {
+        retour.map(item => this.allLessons.push(item));
+        console.warn('cheval');
+        console.warn(retour);
+      } );
+  }
+
+  getCavliers(){
+    this.clientData.getcavalierById(localStorage.getItem('currentId'))
+      .subscribe(retour => {
+        this.cavalier = retour;
+        console.warn("Cavalier");
+        console.warn(this.cavalier);
+        if (this.cavalier.courses){
+          this.cavalier.courses.map(item => this.myLessons.push(item));
+        }
+        console.warn('cheval');
+        console.warn(retour);
+      });
+  }
+
+  setValues(cheval: Cheval[]){
+    cheval.map(item => this.horses.push(item));
+    console.warn(this.horses);
+  }
 
   ngOnInit(): void {
+    this.getCavliers();
+    this.getHorsesData();
+    this.getCourses();
   }
 
 }

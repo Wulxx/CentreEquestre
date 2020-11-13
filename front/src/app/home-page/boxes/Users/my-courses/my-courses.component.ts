@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output} from '@angular/core';
 import {CoursesComponent} from '../courses/courses.component';
 import {CoursesElement} from '../../../../../models/Courses';
+import { GetDataService } from '../../../../get-data.service';
 
 
 
@@ -11,18 +12,35 @@ import {CoursesElement} from '../../../../../models/Courses';
 })
 
 export class MyCoursesComponent implements OnInit {
-  COURSES_DATA: CoursesElement[] = [
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '11/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Monique', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'},
-    {Date: '10/02/20', Cheval: 'Petit Tonnerue', Moniteur: 'Alain', Duree: '1h30'}
-  ];
+
+  @Input() public lessons;
+  @Input() public isMonitor;
+  @Input() public isAdmin = false;
+  @Input() public type;
+  @Output() public action;
+  mylessons: CoursesElement[] = [];
 
 
-  constructor() { }
+
+  constructor(private getDataClient: GetDataService) { }
+
+  getLessonsData(){
+      this.lessons.map(item => {
+        console.log("by id");
+        console.log(item);
+        this.getDataClient.getLessonsById(item)
+          .subscribe(retour => this.mylessons.push(retour) );
+      });
+  }
 
   ngOnInit(): void {
+    if (!this.isMonitor && !this.isAdmin){
+      this.getLessonsData();
+    }else{
+      this.mylessons = this.lessons;
+    }
+    console.log("this.lessons");
+    console.log(this.lessons);
   }
 
 }

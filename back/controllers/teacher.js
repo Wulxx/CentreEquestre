@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import horseSchema from '../models/horse.js'
 import teacherSchema from '../models/teacher.js'
+import lessonSchema from '../models/lessons.js'
 
 import {v4 as uuidv4 } from 'uuid';
 import pkg from 'express';
@@ -49,7 +50,8 @@ function checkIfExist (req, res, connexionWay) {
             id_token: jwtToken,
             expiresIn: 36000,
             msg: 'OK',
-            status: 200
+            status: 'Monitor',
+            id: getUser._id
         });
     }).catch(err => {
         console.log(err)
@@ -58,31 +60,51 @@ function checkIfExist (req, res, connexionWay) {
         });
     });
 }
-export const assingHorse = (req, res) => {
+export const assingHorse = (req, res, next) => {
     let currentHorse = req.body;
     currentHorse.courses.push({debut : "2020-10-10T19:30:00", end : "2020-10-10T20:30:00"})
      horseSchema.findByIdAndUpdate(horseId, {
         $set: currentHorse
         }, (error, data) => {
         if (error) {
-            return next(error);
             console.log(error)
+        return res.status(401).json({
+            message: "Authentication failed"
+        });
         }else {
             res.json(data)
             console.log('user successfully updated !')
         }
     })
 }
-export const getHorses = (req,res) => {
+
+export const getTeachers = (req,res, next) => {
     console.log("get")
-    horseSchema.find((error, response) => {
+    teacherSchema.find((error, response) => {
         if(error){
-            return next(error)
+            console.log(error)
+        return res.status(401).json({
+            message: "Authentication failed"
+        });
         } else {
             res.status(200).json(response)
         }
     })
 }
+
+export const getTeacher = (req,res, next) => {
+    console.log("get"+req.params.id)
+    teacherSchema.findOne({_id: req.params.id},(error, response) => {
+        if(error){
+            return res.status(401).json({
+            message: "Authentication failed"
+        });
+        } else {
+            res.status(200).json(response)
+        }
+    })
+}
+
 export const createHorse = (req, res, next) => {
     console.log("create")
     const horse = new horseSchema({
@@ -105,6 +127,31 @@ export const createHorse = (req, res, next) => {
         });
 }
 
+export const createLesson = (req, res, next) => {
+    console.log("create")
+    const lesson = new lessonSchema({
+        name: req.body.name,
+        assignedMonitor : req.body.assignedMonitor,
+        debutDate : req.body.debutDate,
+        endDate : req.body.endDate,
+        horses : [],
+        students : [],
+    });
+    lesson.save()
+        .then((responseFromPost) => {
+            res.status(201).json({
+                message: "User successfully created",
+                result : responseFromPost
+            });
+            res.send("Ok");
+        }).catch(error => {
+            res.status(500).json({
+                error: error
+            });
+            res.send("Pas Ok");
+        });
+}
+
 export const updateTeacher = (req,res, next) => {
     console.log("update")
     teacherSchema.findByIdAndUpdate(req.params.id, {
@@ -112,7 +159,9 @@ export const updateTeacher = (req,res, next) => {
     }, (error, data) => {
         if (error) {
             console.log(error)
-            return next(error);
+            return res.status(401).json({
+            message: "Authentication failed"
+        });;
         }else {
             res.json(data)
             console.log('user successfully updated !')

@@ -19,14 +19,14 @@ router.post("/signIn",
         .isEmpty()
 ],signAsSUperAdmin);
 
-router.get("/getAdmin/",
+router.get("/getAdmin",
 [
     check('password', 'Password should t be isEmpty')
         .not()
         .isEmpty()
 ],getAdmin);
 
-router.get("/getAllAdmin/",
+router.get("/getAllAdmin",
 [
     check('password', 'Password should t be isEmpty')
         .not()
@@ -34,7 +34,7 @@ router.get("/getAllAdmin/",
 ],getAllAdmin);
 
 
-router.post("/createAdmin/:id",
+router.post("/createAdmin",
 [
     check('password', 'Password should t be isEmpty')
         .not()

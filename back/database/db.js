@@ -1,5 +1,5 @@
 const database = {
-    db: 'mongodb://localhost:27017/meanauthdb'
+    db: 'mongodb+srv://Alexendre:Web2020@cluster0.ms3nh.mongodb.net/'
 }
 
 export default database;
